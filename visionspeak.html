@@ -1,0 +1,2376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionSpeak - Multilingual AI Smart-Specs E-Commerce</title>
+
+    <!-- Google Fonts for Multilingual Support -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Noto+Sans+Telugu:wght@400;700&family=Noto+Sans+Tamil:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&family=Noto+Sans+Kannada:wght@400;700&family=Noto+Sans+Malayalam:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        /* Multilingual Font Support */
+        .font-devanagari {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+        }
+
+        .font-telugu {
+            font-family: 'Noto Sans Telugu', sans-serif;
+        }
+
+        .font-tamil {
+            font-family: 'Noto Sans Tamil', sans-serif;
+        }
+
+        .font-arabic {
+            font-family: 'Noto Sans Arabic', sans-serif;
+        }
+
+        .font-kannada {
+            font-family: 'Noto Sans Kannada', sans-serif;
+        }
+
+        .font-malayalam {
+            font-family: 'Noto Sans Malayalam', sans-serif;
+        }
+
+        .font-korean {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .font-japanese {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .font-chinese {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        /* Day/Night Mode Variables */
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --text-primary: #ffffff;
+            --text-secondary: #d1d5db;
+            --border-color: #4b5563;
+        }
+
+        .light-mode {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --border-color: #cbd5e1;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+        }
+
+        .dark-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+            border-color: #8b5cf6;
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+        }
+
+        .speaking {
+            background: linear-gradient(145deg, #fbbf24, #f59e0b) !important;
+            border: 2px solid #d97706 !important;
+            color: #000 !important;
+        }
+
+        .voice-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.5);
+            border: 3px solid #8b5cf6;
+            backdrop-filter: blur(15px);
+        }
+
+        .light-mode .voice-controls {
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid #8b5cf6;
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+            color: #1e293b;
+        }
+
+        .theme-toggle {
+            background: linear-gradient(145deg, #8b5cf6, #a855f7);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .voice-search-btn {
+            background: linear-gradient(145deg, #7c3aed, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+
+        .voice-search-btn:hover {
+            background: linear-gradient(145deg, #8b5cf6, #a855f7);
+            transform: scale(1.05);
+        }
+
+        .voice-search-btn.listening {
+            background: linear-gradient(145deg, #ef4444, #f87171);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            color: var(--text-primary);
+        }
+
+        .modal-content.big-modal {
+            max-width: 95%;
+            max-height: 95%;
+        }
+
+        .modal.zoom-in .modal-content {
+            transform: scale(1.5);
+            transition: transform 0.3s ease;
+        }
+
+        .architecture-diagram {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .prototype-image {
+            border-radius: 15px;
+            border: 2px solid #8b5cf6;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+            background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+            padding: 20px;
+        }
+
+        .voice-feedback {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(145deg, #8b5cf6, #a855f7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            border: 2px solid #7c3aed;
+            display: none;
+            z-index: 1500;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .demo-video {
+            width: 100%;
+            height: 600px;
+            border-radius: 15px;
+            background: #000;
+        }
+
+        .listening-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(139, 92, 246, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 50%;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+            z-index: 3000;
+            display: none;
+        }
+
+        .volume-indicator {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(139, 92, 246, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            z-index: 1500;
+            display: none;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .wishlist-heart {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .wishlist-heart:hover {
+            background: #ef4444;
+            transform: scale(1.1);
+        }
+
+        .wishlist-heart.active {
+            background: #ef4444;
+        }
+
+        .currency-selector {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-left: 10px;
+        }
+
+        .hero-prototype {
+            width: 100%;
+            max-width: 800px;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        /* Header controls */
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-control-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .header-control-btn:hover {
+            background: var(--bg-tertiary);
+            border-color: #8b5cf6;
+        }
+
+        .header-select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-adaptive">
+    <!-- Listening Indicator -->
+    <div id="listeningIndicator" class="listening-indicator">🎤</div>
+
+    <!-- Volume Indicator -->
+    <div id="volumeIndicator" class="volume-indicator">Volume: 100%</div>
+
+    <!-- Voice Feedback -->
+    <div id="voiceFeedback" class="voice-feedback">
+        🎤 Always listening for voice commands...
+    </div>
+
+    <!-- Header/Navigation -->
+    <header class="header-bg shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div
+                    class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    VisionSpeak</div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="nav-link font-medium">Home</a>
+                    <a href="#products" class="nav-link font-medium">Products</a>
+                    <a href="#architecture" class="nav-link font-medium">Architecture</a>
+                    <a href="#features" class="nav-link font-medium">Features</a>
+
+                    <!-- Header Controls Moved Here -->
+                    <div class="header-controls">
+                        <button id="themeToggle" class="header-control-btn" title="Toggle Theme">
+                            <span id="themeIcon">🌙</span>
+                        </button>
+                        <select id="languageSelect" class="header-select">
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                            <option value="hi">हिंदी</option>
+                            <option value="te">తెలుగు</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="ur">اردو</option>
+                            <option value="kn">ಕನ್ನಡ</option>
+                            <option value="ml">മലയാളം</option>
+                            <option value="ko">한국어</option>
+                            <option value="ja">日本語</option>
+                            <option value="zh">中文</option>
+                        </select>
+                        <select id="currencySelect" class="header-select">
+                            <option value="INR">₹ INR</option>
+                            <option value="USD">$ USD</option>
+                            <option value="EUR">€ EUR</option>
+                            <option value="GBP">£ GBP</option>
+                            <option value="JPY">¥ JPY</option>
+                        </select>
+                        <button id="pauseBtn" class="header-control-btn" title="Pause">Pause</button>
+                        <button id="resumeBtn" class="header-control-btn" style="display:none;"
+                            title="Resume">Resume</button>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="cartBtn"
+                        class="relative bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                        🛒 Cart
+                        <span id="cartBadge" class="cart-badge" style="display: none;">0</span>
+                    </button>
+                    <button class="md:hidden text-adaptive-secondary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-adaptive py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight" data-speak="true">
+                    VISIONSPEAK: The Multilingual AI Smart-Specs
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90" data-speak="true">
+                    Unprecedented independence powered by real-time computer vision
+                </p>
+
+                <!-- Large Prototype Image -->
+                <div class="hero-prototype mb-8">
+                    <svg viewBox="0 0 800 500" class="w-full h-full">
+                        <!-- Glasses Frame -->
+                        <defs>
+                            <linearGradient id="frameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2d3748;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#4a5568;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="lensGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#e2e8f0;stop-opacity:0.3" />
+                                <stop offset="100%" style="stop-color:#cbd5e1;stop-opacity:0.1" />
+                            </linearGradient>
+                            <linearGradient id="sensorGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:0.8" />
+                            </linearGradient>
+                            <linearGradient id="bluetoothGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0.8" />
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Main Glasses Frame -->
+                        <!-- Left Lens -->
+                        <ellipse cx="250" cy="250" rx="100" ry="80" fill="url(#lensGradient)"
+                            stroke="url(#frameGradient)" stroke-width="12" />
+
+                        <!-- Right Lens -->
+                        <ellipse cx="550" cy="250" rx="100" ry="80" fill="url(#lensGradient)"
+                            stroke="url(#frameGradient)" stroke-width="12" />
+
+                        <!-- Bridge -->
+                        <rect x="350" y="230" width="100" height="40" rx="20" fill="url(#frameGradient)" />
+
+                        <!-- Left Temple -->
+                        <rect x="150" y="240" width="100" height="20" rx="10" fill="url(#frameGradient)" />
+                        <rect x="80" y="245" width="70" height="15" rx="8" fill="url(#frameGradient)"
+                            transform="rotate(-20 115 252)" />
+
+                        <!-- Right Temple -->
+                        <rect x="550" y="240" width="100" height="20" rx="10" fill="url(#frameGradient)" />
+                        <rect x="650" y="245" width="70" height="15" rx="8" fill="url(#frameGradient)"
+                            transform="rotate(20 685 252)" />
+
+                        <!-- EYE SENSORS (Near Eyes) -->
+                        <!-- Left Eye Sensor Array -->
+                        <circle cx="200" cy="200" r="25" fill="url(#sensorGlow)" opacity="0.9" />
+                        <circle cx="200" cy="200" r="18" fill="#1e40af" />
+                        <circle cx="200" cy="200" r="12" fill="#3b82f6" />
+                        <circle cx="198" cy="198" r="4" fill="#93c5fd" />
+                        <text x="200" y="170" text-anchor="middle" fill="#3b82f6" font-size="14"
+                            font-weight="bold">CAMERA</text>
+
+                        <!-- Right Eye Sensor Array -->
+                        <circle cx="600" cy="200" r="25" fill="url(#sensorGlow)" opacity="0.9" />
+                        <circle cx="600" cy="200" r="18" fill="#1e40af" />
+                        <circle cx="600" cy="200" r="12" fill="#3b82f6" />
+                        <circle cx="598" cy="198" r="4" fill="#93c5fd" />
+                        <text x="600" y="170" text-anchor="middle" fill="#3b82f6" font-size="14"
+                            font-weight="bold">DEPTH SENSOR</text>
+
+                        <!-- Additional Sensors -->
+                        <rect x="180" y="320" width="40" height="20" rx="10" fill="#10b981" />
+                        <text x="200" y="350" text-anchor="middle" fill="#10b981" font-size="12">DISTANCE</text>
+
+                        <rect x="580" y="320" width="40" height="20" rx="10" fill="#f59e0b" />
+                        <text x="600" y="350" text-anchor="middle" fill="#f59e0b" font-size="12">AI PROC</text>
+
+                        <!-- BLUETOOTH SPEAKERS (Near Ears) -->
+                        <!-- Left Bluetooth Speaker -->
+                        <circle cx="100" cy="250" r="35" fill="url(#bluetoothGlow)" />
+                        <circle cx="100" cy="250" r="25" fill="#7c3aed" />
+                        <circle cx="100" cy="250" r="18" fill="#8b5cf6" />
+                        <!-- Bluetooth Symbol -->
+                        <path d="M90 240 L110 260 L100 250 L110 240 L90 260" stroke="white" stroke-width="3"
+                            fill="none" />
+                        <text x="100" y="210" text-anchor="middle" fill="#8b5cf6" font-size="12"
+                            font-weight="bold">BLUETOOTH</text>
+                        <text x="100" y="300" text-anchor="middle" fill="#8b5cf6" font-size="10">AUDIO OUT</text>
+
+                        <!-- Right Bluetooth Speaker -->
+                        <circle cx="700" cy="250" r="35" fill="url(#bluetoothGlow)" />
+                        <circle cx="700" cy="250" r="25" fill="#7c3aed" />
+                        <circle cx="700" cy="250" r="18" fill="#8b5cf6" />
+                        <!-- Bluetooth Symbol -->
+                        <path d="M690 240 L710 260 L700 250 L710 240 L690 260" stroke="white" stroke-width="3"
+                            fill="none" />
+                        <text x="700" y="210" text-anchor="middle" fill="#8b5cf6" font-size="12"
+                            font-weight="bold">BLUETOOTH</text>
+                        <text x="700" y="300" text-anchor="middle" fill="#8b5cf6" font-size="10">AUDIO OUT</text>
+
+                        <!-- Audio Waves from Speakers -->
+                        <path d="M135 250 Q150 230 165 250 Q150 270 135 250" stroke="#a855f7" stroke-width="3"
+                            fill="none" opacity="0.6" />
+                        <path d="M140 250 Q160 220 180 250 Q160 280 140 250" stroke="#a855f7" stroke-width="2"
+                            fill="none" opacity="0.4" />
+
+                        <path d="M665 250 Q650 230 635 250 Q650 270 665 250" stroke="#a855f7" stroke-width="3"
+                            fill="none" opacity="0.6" />
+                        <path d="M660 250 Q640 220 620 250 Q640 280 660 250" stroke="#a855f7" stroke-width="2"
+                            fill="none" opacity="0.4" />
+
+                        <!-- Central AI Processing Unit -->
+                        <rect x="375" y="200" width="50" height="30" rx="8" fill="#48bb78" />
+                        <text x="400" y="220" text-anchor="middle" fill="white" font-size="14"
+                            font-weight="bold">AI</text>
+                        <text x="400" y="250" text-anchor="middle" fill="#48bb78" font-size="10">PROCESSOR</text>
+
+                        <!-- Microphone Array -->
+                        <rect x="390" y="180" width="20" height="20" rx="10" fill="#4a5568" />
+                        <circle cx="400" cy="170" r="5" fill="#718096" />
+                        <text x="400" y="155" text-anchor="middle" fill="#718096" font-size="10">MIC</text>
+
+                        <!-- Status LEDs -->
+                        <circle cx="420" cy="210" r="4" fill="#48bb78" />
+                        <circle cx="435" cy="210" r="4" fill="#3b82f6" />
+                        <circle cx="450" cy="210" r="4" fill="#f59e0b" />
+
+                        <!-- Detection Rays from Sensors -->
+                        <path d="M200 200 L300 120" stroke="#3b82f6" stroke-width="3" opacity="0.7"
+                            stroke-dasharray="8,8" />
+                        <path d="M200 200 L400 100" stroke="#3b82f6" stroke-width="3" opacity="0.7"
+                            stroke-dasharray="8,8" />
+                        <path d="M200 200 L500 120" stroke="#3b82f6" stroke-width="3" opacity="0.7"
+                            stroke-dasharray="8,8" />
+
+                        <path d="M600 200 L500 120" stroke="#1d4ed8" stroke-width="3" opacity="0.7"
+                            stroke-dasharray="8,8" />
+                        <path d="M600 200 L400 100" stroke="#1d4ed8" stroke-width="3" opacity="0.7"
+                            stroke-dasharray="8,8" />
+                        <path d="M600 200 L300 120" stroke="#1d4ed8" stroke-width="3" opacity="0.7"
+                            stroke-dasharray="8,8" />
+
+                        <!-- Detected Objects Display -->
+                        <rect x="320" y="80" width="80" height="35" rx="12" fill="#ec4899" opacity="0.9" />
+                        <text x="360" y="100" text-anchor="middle" fill="white" font-size="14" font-weight="bold">BIKE
+                            1.2 KM</text>
+
+                        <rect x="420" y="60" width="90" height="35" rx="12" fill="#10b981" opacity="0.9" />
+                        <text x="465" y="80" text-anchor="middle" fill="white" font-size="14" font-weight="bold">PERSON
+                            HELMET</text>
+
+                        <!-- Voice Output Text -->
+                        <rect x="200" y="400" width="400" height="60" rx="25" fill="#1f2937" opacity="0.9" />
+                        <text x="400" y="425" text-anchor="middle" fill="#60a5fa" font-size="16" font-weight="bold">🔊
+                            "Black bike approaching 1.2km ahead"</text>
+                        <text x="400" y="445" text-anchor="middle" fill="#9ca3af" font-size="12">Multilingual Voice
+                            Output</text>
+
+                        <!-- Brand Label -->
+                        <text x="400" y="380" text-anchor="middle" fill="#8b5cf6" font-size="20"
+                            font-weight="bold">VisionSpeak</text>
+                        <text x="400" y="395" text-anchor="middle" fill="#6b7280" font-size="14">Smart AI Detection
+                            Glasses</text>
+                    </svg>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button id="watchDemoBtn"
+                        class="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg"
+                        data-speak="true">
+                        Watch Demo
+                    </button>
+                    <button id="viewArchitectureBtn"
+                        class="border-2 border-white text-adaptive px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-purple-600 transition-colors"
+                        data-speak="true">
+                        View Architecture
+                    </button>
+                    <button id="shopNowBtn"
+                        class="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-purple-700 transition-colors"
+                        data-speak="true">
+                        Shop Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-16" style="background: var(--bg-secondary);">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-adaptive mb-12" data-speak="true">
+                Our Products
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1 - VisionSpeak Pro (Gets Image 2) -->
+                <div class="product-card p-6 rounded-xl relative">
+                    <button class="wishlist-heart" data-product="1">
+                        <span>♡</span>
+                    </button>
+                    <div
+                        class="w-full h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                        <!-- Vision Speak Pro - Sleek blue-tinted smart glasses -->
+                        <img src="./vision-pro.png" alt="Vision Speak Pro" class="w-full h-full object-cover"
+                            onerror="this.src='https://via.placeholder.com/400x300?text=Vision+Speak+Pro'" />
+                    </div>
+                    <h3 class="text-xl font-bold text-adaptive mb-2" data-speak="true">Vision Speak Pro</h3>
+                    <p class="text-adaptive-secondary mb-4" data-speak="true">Advanced AI smart glasses with 4K cameras
+                        and bone conduction audio</p>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-2xl font-bold text-purple-600" data-price="INR"
+                            data-speak="true">₹45,999</span>
+                        <span class="text-sm text-adaptive-secondary" data-speak="true">In Stock</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button
+                            class="flex-1 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
+                            onclick="addToCart(1)">
+                            Add to Cart
+                        </button>
+                        <button class="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
+                            onclick="addToWishlist(1)">
+                            ♡
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 - VisionSpeak Lite (Gets Image 1) -->
+                <div class="product-card p-6 rounded-xl relative">
+                    <button class="wishlist-heart" data-product="2">
+                        <span>♡</span>
+                    </button>
+                    <div
+                        class="w-full h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                        <!-- Vision Speak Lite - Smart glasses with camera -->
+                        <img src="./vision-lite.png" alt="Vision Speak Lite" class="w-full h-full object-cover"
+                            onerror="this.src='https://via.placeholder.com/400x300?text=Vision+Speak+Lite'" />
+                    </div>
+                    <h3 class="text-xl font-bold text-adaptive mb-2" data-speak="true">Vision Speak Lite</h3>
+                    <p class="text-adaptive-secondary mb-4" data-speak="true">Essential smart glasses with HD cameras
+                        and basic AI features</p>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-2xl font-bold text-purple-600" data-price="INR"
+                            data-speak="true">₹29,999</span>
+                        <span class="text-sm text-adaptive-secondary" data-speak="true">In Stock</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button
+                            class="flex-1 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
+                            onclick="addToCart(2)">
+                            Add to Cart
+                        </button>
+                        <button class="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
+                            onclick="addToWishlist(2)">
+                            ♡
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3 - VisionSpeak Max (Gets Image 3) -->
+                <div class="product-card p-6 rounded-xl relative">
+                    <button class="wishlist-heart" data-product="3">
+                        <span>♡</span>
+                    </button>
+                    <div
+                        class="w-full h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                        <!-- Vision Speak Max - Minimal frame smart glasses -->
+                        <img src="./vision-max.png" alt="Vision Speak Max" class="w-full h-full object-cover"
+                            onerror="this.src='https://via.placeholder.com/400x300?text=Vision+Speak+Max'" />
+                    </div>
+                    <h3 class="text-xl font-bold text-adaptive mb-2" data-speak="true">Vision Speak Max</h3>
+                    <p class="text-adaptive-secondary mb-4" data-speak="true">Premium smart glasses with 8K cameras,
+                        advanced AI, and haptic feedback</p>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-2xl font-bold text-purple-600" data-price="INR"
+                            data-speak="true">₹79,999</span>
+                        <span class="text-sm text-adaptive-secondary" data-speak="true">In Stock</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button
+                            class="flex-1 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
+                            onclick="addToCart(3)">
+                            Add to Cart
+                        </button>
+                        <button class="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
+                            onclick="addToWishlist(3)">
+                            ♡
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Preview -->
+    <section id="features" class="py-16" style="background: var(--bg-primary);">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-adaptive mb-12" data-speak="true">
+                Core Features
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Global Voice -->
+                <div class="feature-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-adaptive mb-4" data-speak="true">Global Voice</h3>
+                    <p class="text-adaptive-secondary" data-speak="true">
+                        Audio descriptions in 11 languages including Hindi, Telugu, Tamil, Urdu, Kannada, Malayalam,
+                        Korean, Japanese, Chinese, and French. Breaking language barriers for global accessibility.
+                    </p>
+                </div>
+
+                <!-- Hands-Free Design -->
+                <div class="feature-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-adaptive mb-4" data-speak="true">Hands-Free Design</h3>
+                    <p class="text-adaptive-secondary" data-speak="true">
+                        Ergonomic spectacles with bone conduction speakers. Always-on computer vision without
+                        compromising spatial awareness or requiring hand interaction.
+                    </p>
+                </div>
+
+                <!-- Haptic Alerts -->
+                <div class="feature-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-adaptive mb-4" data-speak="true">Haptic Alerts</h3>
+                    <p class="text-adaptive-secondary" data-speak="true">
+                        Instant vibration alerts for critical obstacles like approaching vehicles or steep stairs.
+                        Immediate safety awareness beyond audio feedback.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="py-16" style="background: var(--bg-secondary);">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-adaptive mb-12" data-speak="true">
+                System Architecture & Data Flow
+            </h2>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="dark-card p-8 rounded-xl mb-8">
+                    <h3 class="text-2xl font-bold text-adaptive mb-6" data-speak="true">How It Works</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
+                                1</div>
+                            <p class="text-adaptive-secondary" data-speak="true">Camera captures real-time video frames
+                            </p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
+                                2</div>
+                            <p class="text-adaptive-secondary" data-speak="true">YOLOv8 model processes and detects
+                                objects</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
+                                3</div>
+                            <p class="text-adaptive-secondary" data-speak="true">Detected labels sent to Flask API
+                                backend</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
+                                4</div>
+                            <p class="text-adaptive-secondary" data-speak="true">gTTS engine converts text to
+                                multilingual audio</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
+                                5</div>
+                            <p class="text-adaptive-secondary" data-speak="true">Audio output delivered to user via bone
+                                conduction</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="dark-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-adaptive mb-4" data-speak="true">Database Logging</h3>
+                        <p class="text-adaptive-secondary" data-speak="true">
+                            The system logs all interactions (detected objects, selected language, timestamps) to SQLite
+                            database via Flask backend for analytics and improvement.
+                        </p>
+                    </div>
+
+                    <div class="dark-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-adaptive mb-4" data-speak="true">Technology Stack</h3>
+                        <ul class="text-adaptive-secondary space-y-2" data-speak="true">
+                            <li>• YOLOv8 for object detection</li>
+                            <li>• Python & OpenCV for processing</li>
+                            <li>• Flask API backend</li>
+                            <li>• SQLite database</li>
+                            <li>• gTTS multilingual engine</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t" style="background: var(--bg-primary); border-color: var(--border-color);">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-lg text-adaptive" data-speak="true">Project by Lavanya Bojja</p>
+            <p class="text-adaptive-secondary mt-2" data-speak="true">Empowering independence through innovative AI
+                technology</p>
+        </div>
+    </footer>
+
+    <!-- Demo Video Modal -->
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-adaptive">VisionSpeak Demo</h2>
+                <button id="closeDemoModal"
+                    class="text-adaptive-secondary hover:text-adaptive text-2xl">&times;</button>
+            </div>
+            <div class="mb-4 text-center">
+                <p class="text-adaptive mb-2" style="font-size: 18px; font-weight: 600;">🎥 Control Options:</p>
+                <p class="text-adaptive-secondary" style="font-size: 16px;">Click buttons below OR say <strong>"Play
+                        video"</strong> / <strong>"Stop video"</strong></p>
+                <p class="text-purple-400 mt-2" style="font-size: 14px;">⏱️ Auto-closes in 5 seconds if no interaction
+                </p>
+            </div>
+            <div class="demo-video-container">
+                <iframe id="demoVideoFrame" class="demo-video" src="" title="VisionSpeak Demo" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
+                </iframe>
+            </div>
+            <!-- Video Control Buttons -->
+            <div class="flex justify-center gap-4 mt-4">
+                <button id="playVideoBtn" onclick="playDemoVideo()"
+                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition">
+                    ▶️ Play Video
+                </button>
+                <button id="stopVideoBtn" onclick="stopDemoVideo()"
+                    class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition">
+                    ⏹️ Stop Video
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Architecture Modal -->
+    <div id="architectureModal" class="modal">
+        <div class="modal-content big-modal">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-adaptive">System Architecture</h2>
+                <button id="closeArchitectureModal"
+                    class="text-adaptive-secondary hover:text-adaptive text-2xl">&times;</button>
+            </div>
+            <div class="architecture-diagram">
+                <svg viewBox="0 0 800 600" class="w-full h-auto">
+                    <!-- Camera Input -->
+                    <rect x="50" y="50" width="100" height="60" rx="10" fill="#8b5cf6" stroke="#a855f7"
+                        stroke-width="2" />
+                    <text x="100" y="85" text-anchor="middle" fill="white" font-size="12"
+                        font-weight="bold">Camera</text>
+
+                    <!-- YOLOv8 Processing -->
+                    <rect x="200" y="150" width="120" height="80" rx="10" fill="#10b981" stroke="#059669"
+                        stroke-width="2" />
+                    <text x="260" y="185" text-anchor="middle" fill="white" font-size="12"
+                        font-weight="bold">YOLOv8</text>
+                    <text x="260" y="200" text-anchor="middle" fill="white" font-size="10">Object Detection</text>
+
+                    <!-- Flask API -->
+                    <rect x="400" y="150" width="100" height="80" rx="10" fill="#f59e0b" stroke="#d97706"
+                        stroke-width="2" />
+                    <text x="450" y="185" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Flask
+                        API</text>
+                    <text x="450" y="200" text-anchor="middle" fill="white" font-size="10">Backend</text>
+
+                    <!-- gTTS Engine -->
+                    <rect x="550" y="50" width="100" height="60" rx="10" fill="#ec4899" stroke="#db2777"
+                        stroke-width="2" />
+                    <text x="600" y="85" text-anchor="middle" fill="white" font-size="12" font-weight="bold">gTTS
+                        Engine</text>
+
+                    <!-- Database -->
+                    <rect x="400" y="300" width="100" height="60" rx="10" fill="#6366f1" stroke="#4f46e5"
+                        stroke-width="2" />
+                    <text x="450" y="335" text-anchor="middle" fill="white" font-size="12" font-weight="bold">SQLite
+                        DB</text>
+
+                    <!-- Audio Output -->
+                    <rect x="650" y="150" width="100" height="80" rx="10" fill="#8b5cf6" stroke="#a855f7"
+                        stroke-width="2" />
+                    <text x="700" y="185" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Audio
+                        Output</text>
+                    <text x="700" y="200" text-anchor="middle" fill="white" font-size="10">Bone Conduction</text>
+
+                    <!-- Arrows -->
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#a855f7" />
+                        </marker>
+                    </defs>
+
+                    <!-- Data flow arrows -->
+                    <path d="M150 80 L200 180" stroke="#a855f7" stroke-width="2" fill="none"
+                        marker-end="url(#arrowhead)" />
+                    <path d="M320 190 L400 190" stroke="#a855f7" stroke-width="2" fill="none"
+                        marker-end="url(#arrowhead)" />
+                    <path d="M500 190 L550 80" stroke="#a855f7" stroke-width="2" fill="none"
+                        marker-end="url(#arrowhead)" />
+                    <path d="M650 80 L650 190" stroke="#a855f7" stroke-width="2" fill="none"
+                        marker-end="url(#arrowhead)" />
+                    <path d="M450 230 L450 300" stroke="#a855f7" stroke-width="2" fill="none"
+                        marker-end="url(#arrowhead)" />
+
+                    <!-- Labels -->
+                    <text x="175" y="135" fill="#a855f7" font-size="10">Video Frames</text>
+                    <text x="360" y="185" fill="#a855f7" font-size="10">Labels</text>
+                    <text x="525" y="120" fill="#a855f7" font-size="10">Text</text>
+                    <text x="655" y="130" fill="#a855f7" font-size="10">Audio</text>
+                    <text x="460" y="270" fill="#a855f7" font-size="10">Logs</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-adaptive">Shopping Cart</h2>
+                <button id="closeCartModal"
+                    class="text-adaptive-secondary hover:text-adaptive text-2xl">&times;</button>
+            </div>
+            <div id="cartItems" class="space-y-4 mb-6">
+                <!-- Cart items will be populated here -->
+            </div>
+            <div class="flex justify-between items-center border-t pt-4" style="border-color: var(--border-color);">
+                <span class="text-xl font-bold text-adaptive">Total: <span id="cartTotal">₹0</span></span>
+                <button id="checkoutBtn"
+                    class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
+                    onclick="showPaymentOptions()">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Options Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-adaptive">💳 Payment Options</h2>
+                <button id="closePaymentModal"
+                    class="text-adaptive-secondary hover:text-adaptive text-2xl">&times;</button>
+            </div>
+            <div class="space-y-4">
+                <button
+                    class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 px-6 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all flex items-center justify-between text-lg font-semibold">
+                    <span>📱 UPI Payment</span>
+                    <span class="text-sm opacity-75">Google Pay, PhonePe, Paytm</span>
+                </button>
+                <button
+                    class="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-4 px-6 rounded-lg hover:from-green-700 hover:to-teal-700 transition-all flex items-center justify-between text-lg font-semibold">
+                    <span>💳 Credit Card</span>
+                    <span class="text-sm opacity-75">Visa, Mastercard, Amex</span>
+                </button>
+                <button
+                    class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center justify-between text-lg font-semibold">
+                    <span>💳 Debit Card</span>
+                    <span class="text-sm opacity-75">All major banks</span>
+                </button>
+                <button
+                    class="w-full bg-gradient-to-r from-gray-800 to-black text-white py-4 px-6 rounded-lg hover:from-gray-900 hover:to-gray-800 transition-all flex items-center justify-between text-lg font-semibold">
+                    <span> Apple Pay</span>
+                    <span class="text-sm opacity-75">Instant & Secure</span>
+                </button>
+                <button
+                    class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-6 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all flex items-center justify-between text-lg font-semibold">
+                    <span>🏦 Net Banking</span>
+                    <span class="text-sm opacity-75">All banks</span>
+                </button>
+                <button
+                    class="w-full bg-gradient-to-r from-orange-600 to-red-600 text-white py-4 px-6 rounded-lg hover:from-orange-700 hover:to-red-700 transition-all flex items-center justify-between text-lg font-semibold">
+                    <span>📦 Cash on Delivery</span>
+                    <span class="text-sm opacity-75">Pay when you receive</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Voice narration system
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let isReading = false;
+        let isPaused = false;
+        let elementsToRead = [];
+        let currentIndex = 0;
+        let currentLanguage = 'en';
+        let recognition = null;
+        let isListening = false;
+        let isDarkMode = true;
+        let currentCurrency = 'INR';
+
+        // Volume control variables
+        let currentVolume = 1.0;
+        let isMuted = false;
+        let previousVolume = 1.0;
+
+        // Demo video control - open only ONCE
+        let demoOpenedOnce = false;
+
+        // Shopping cart
+        let cart = [];
+        let wishlist = [];
+
+        // Currency conversion rates (simplified)
+        const currencyRates = {
+            'INR': 1,
+            'USD': 0.012,
+            'EUR': 0.011,
+            'GBP': 0.0095,
+            'JPY': 1.8
+        };
+
+        // Product data
+        const products = {
+            1: { name: 'Vision Speak Pro', price: 45999, description: 'Advanced AI smart glasses with 4K cameras and bone conduction audio' },
+            2: { name: 'Vision Speak Lite', price: 29999, description: 'Essential smart glasses with HD cameras and basic AI features' },
+            3: { name: 'Vision Speak Max', price: 79999, description: 'Premium smart glasses with 8K cameras, advanced AI, and haptic feedback' }
+        };
+
+        // Enhanced multilingual content with proper Tamil support
+        const translations = {
+            en: {
+                title: "VISIONSPEAK: The Multilingual AI Smart-Specs",
+                tagline: "Unprecedented independence powered by real-time computer vision",
+                watchDemo: "Watch Demo",
+                viewArchitecture: "View Architecture",
+                shopNow: "Shop Now",
+                ourProducts: "Our Products",
+                breakingBarriers: "Breaking Barriers in Visual Accessibility",
+                problemSolution: "Traditional visual aids are limited by language barriers and require hands-on interaction. VisionSpeak revolutionizes independence for the visually impaired with hands-free, instant audio descriptions in multiple languages.",
+                smartSpectacles: "Our smart spectacles use advanced AI computer vision to identify objects, obstacles, and environments in real-time, delivering immediate audio feedback through bone conduction speakers while maintaining spatial awareness.",
+                coreFeatures: "Core Features",
+                globalVoice: "Global Voice",
+                globalVoiceDesc: "Audio descriptions in 11 languages including Hindi, Telugu, Tamil, Urdu, Kannada, Malayalam, Korean, Japanese, Chinese, and French. Breaking language barriers for global accessibility.",
+                handsFree: "Hands-Free Design",
+                handsFreeDesc: "Ergonomic spectacles with bone conduction speakers. Always-on computer vision without compromising spatial awareness or requiring hand interaction.",
+                hapticAlerts: "Haptic Alerts",
+                hapticAlertsDesc: "Instant vibration alerts for critical obstacles like approaching vehicles or steep stairs. Immediate safety awareness beyond audio feedback.",
+                systemArchitecture: "System Architecture & Data Flow",
+                howItWorks: "How It Works",
+                step1: "Camera captures real-time video frames",
+                step2: "YOLOv8 model processes and detects objects",
+                step3: "Detected labels sent to Flask API backend",
+                step4: "gTTS engine converts text to multilingual audio",
+                step5: "Audio output delivered to user via bone conduction",
+                databaseLogging: "Database Logging",
+                databaseDesc: "The system logs all interactions (detected objects, selected language, timestamps) to SQLite database via Flask backend for analytics and improvement.",
+                technologyStack: "Technology Stack",
+                techList: "• YOLOv8 for object detection\n• Python & OpenCV for processing\n• Flask API backend\n• SQLite database\n• gTTS multilingual engine",
+                projectBy: "Project by Lavanya Bojja",
+                empowering: "Empowering independence through innovative AI technology",
+                addToCart: "Add to Cart",
+                inStock: "In Stock",
+                shoppingCart: "Shopping Cart",
+                total: "Total",
+                proceedToCheckout: "Proceed to Checkout"
+            },
+            ta: {
+                title: "விஷன்‌ஸ்பீக்: பல மொழி AI ஸ்மார்ட் கண்ணாடிகள்",
+                tagline: "நேரடி கணினி பார்வை மூலம் சக்தியூட்டப்பட்ட வரலாற்று சுதந்திரம்",
+                watchDemo: "டெமோ பார்க்க",
+                viewArchitecture: "கட்டமைப்பை பார்க்க",
+                shopNow: "இப்போது வாங்க",
+                ourProducts: "எங்கள் தயாரிப்புகள்",
+                breakingBarriers: "காட்சி அணுகலில் தடைகளை உடைத்தல்",
+                problemSolution: "பாரம்பரிய காட்சி உதவி சாதனங்கள் மொழி தடைகளால் வரம்புக்குட்பட்டவை மற்றும் கை-ஆன் தொடர்பு தேவை. விஷன்‌ஸ்பீக் பல மொழிகளில் கை-இலவச, உடனடி ஆடியோ விளக்கங்களுடன் பார்வை குறைபாடுள்ளவர்களுக்கு சுதந்திரத்தில் புரட்சியை ஏற்படுத்துகிறது.",
+                smartSpectacles: "எங்கள் ஸ்மார்ட் கண்ணாடிகள் முன்னேறிய AI கணினி பார்வையைப் பயன்படுத்தி பொருள்கள், தடைகள் மற்றும் சூழல்களை நேரடியாக அடையாளம் காண்கின்றன, இடஞ்சார்ந்த விழிப்புணர்வை பராமரிக்கும் போது எலும்பு கடத்தல் ஸ்பீக்கர்கள் மூலம் உடனடி ஆடியோ பின்னூட்டத்தை வழங்குகின்றன.",
+                coreFeatures: "முக்கிய அம்சங்கள்",
+                globalVoice: "உலகளாவிய குரல்",
+                globalVoiceDesc: "ஹிந்தி, தெலுங்கு, தமிழ், உருது, கன்னடம், மலையாளம், கொரியன், ஜப்பானியம், சீனம் மற்றும் பிரெஞ்சு உட்பட 11 மொழிகளில் ஆடியோ விளக்கங்கள். உலகளாவிய அணுகலுக்காக மொழி தடைகளை உடைத்தல்.",
+                handsFree: "கை-இலவச வடிவமைப்பு",
+                handsFreeDesc: "எலும்பு கடத்தல் ஸ்பீக்கர்களுடன் எர்கோனாமிக் கண்ணாடிகள். இடஞ்சார்ந்த விழிப்புணர்வை சமரசம் செய்யாமல் அல்லது கை தொடர்பு தேவைப்படாமல் எப்போதும் இயங்கும் கணினி பார்வை.",
+                hapticAlerts: "ஹாப்டிக் அலர்ட்கள்",
+                hapticAlertsDesc: "வருகிற வாகனங்கள் அல்லது செங்குத்தான படிக்கட்டுகள் போன்ற முக்கியமான தடைகளுக்கு உடனடி அதிர்வு அலர்ட்கள். ஆடியோ பின்னூட்டத்தைத் தாண்டிய உடனடி பாதுகாப்பு விழிப்புணர்வு.",
+                systemArchitecture: "கணினி கட்டமைப்பு மற்றும் தரவு ஓட்டம்",
+                howItWorks: "இது எப்படி வேலை செய்கிறது",
+                step1: "கேமரா நேரடி வீடியோ பிரேம்களை பிடிக்கிறது",
+                step2: "YOLOv8 மாதிரி செயலாக்கி பொருள்களை கண்டறிகிறது",
+                step3: "கண்டறியப்பட்ட லேபிள்கள் Flask API பேக்எண்டுக்கு அனுப்பப்படுகின்றன",
+                step4: "gTTS இயந்திரம் உரையை பல மொழி ஆடியோவாக மாற்றுகிறது",
+                step5: "ஆடியோ வெளியீடு எலும்பு கடத்தல் மூலம் பயனருக்கு வழங்கப்படுகிறது",
+                databaseLogging: "தரவுத்தள பதிவு",
+                databaseDesc: "கணினி அனைத்து தொடர்புகளையும் (கண்டறியப்பட்ட பொருள்கள், தேர்ந்தெடுக்கப்பட்ட மொழி, நேர முத்திரைகள்) Flask பேக்எண்டு மூலம் SQLite தரவுத்தளத்தில் பகுப்பாய்வு மற்றும் மேம்பாட்டுக்காக பதிவு செய்கிறது.",
+                technologyStack: "தொழில்நுட்ப ஸ்டாக்",
+                techList: "• பொருள் கண்டறிதலுக்கு YOLOv8\n• செயலாக்கத்திற்கு Python & OpenCV\n• Flask API பேக்எண்டு\n• SQLite தரவுத்தளம்\n• gTTS பல மொழி இயந்திரம்",
+                projectBy: "லாவண்யா போஜ்ஜாவின் திட்டம்",
+                empowering: "புதுமையான AI தொழில்நுட்பம் மூலம் சுதந்திரத்தை சக்தியூட்டுதல்",
+                addToCart: "கார்ட்டில் சேர்",
+                inStock: "ஸ்டாக்கில் உள்ளது",
+                shoppingCart: "ஷாப்பிங் கார்ட்",
+                total: "மொத்தம்",
+                proceedToCheckout: "செக்அவுட்டுக்கு செல்"
+            },
+            te: {
+                title: "విజన్‌స్పీక్: బహుభాషా AI స్మార్ట్-స్పెక్స్",
+                tagline: "రియల్-టైమ్ కంప్యూటర్ విజన్ ద్వారా అపూర్వమైన స్వాతంత్ర్యం",
+                watchDemo: "డెమో చూడండి",
+                viewArchitecture: "ఆర్కిటెక్చర్ చూడండి",
+                shopNow: "ఇప్పుడే కొనండి",
+                ourProducts: "మా ఉత్పత్తులు",
+                breakingBarriers: "దృశ్య ప్రాప్యతలో అడ్డంకులను విచ్ఛిన్నం చేయడం",
+                problemSolution: "సాంప్రదాయ దృశ్య సహాయ పరికరాలు భాషా అడ్డంకులచే పరిమితమవుతాయి మరియు చేతితో పరస్పర చర్య అవసరం. విజన్‌స్పీక్ బహుళ భాషలలో చేతులు-ఖాళీ, తక్షణ ఆడియో వివరణలతో దృష్టి వికలాంగులకు స్వాతంత్ర్యంలో విప్లవం చేస్తుంది.",
+                smartSpectacles: "మా స్మార్ట్ అద్దాలు వస్తువులు, అడ్డంకులు మరియు పరిసరాలను నిజ సమయంలో గుర్తించడానికి అధునాతన AI కంప్యూటర్ విజన్‌ను ఉపయోగిస్తాయి, ప్రాదేశిక అవగాహనను నిర్వహిస్తూ ఎముక ప్రసారణ స్పీకర్ల ద్వారా తక్షణ ఆడియో అభిప్రాయాన్ని అందిస్తాయి.",
+                coreFeatures: "ప్రధాన లక్షణాలు",
+                globalVoice: "ప్రపంచ స్వరం",
+                globalVoiceDesc: "హిందీ, తెలుగు, తమిళం, ఉర్దూ, కన్నడ, మలయాళం, కొరియన్, జపనీస్, చైనీస్ మరియు ఫ్రెంచ్‌తో సహా 11 భాషలలో ఆడియో వివరణలు. ప్రపంచ ప్రాప్యత కోసం భాషా అడ్డంకులను విచ్ఛిన్నం చేయడం.",
+                handsFree: "హ్యాండ్స్-ఫ్రీ డిజైన్",
+                handsFreeDesc: "ఎముక ప్రసారణ స్పీకర్లతో ఎర్గోనామిక్ అద్దాలు. ప్రాదేశిక అవగాహనను రాజీ చేయకుండా లేదా చేతి పరస్పర చర్య అవసరం లేకుండా ఎల్లప్పుడూ-ఆన్ కంప్యూటర్ విజన్.",
+                hapticAlerts: "హాప్టిక్ హెచ్చరికలు",
+                hapticAlertsDesc: "సమీపించే వాహనాలు లేదా నిటారుగా ఉన్న మెట్లు వంటి క్లిష్టమైన అడ్డంకుల కోసం తక్షణ కంపన హెచ్చరికలు. ఆడియో అభిప్రాయానికి మించి తక్షణ భద్రతా అవగాహన.",
+                systemArchitecture: "సిస్టమ్ ఆర్కిటెక్చర్ & డేటా ఫ్లో",
+                howItWorks: "ఇది ఎలా పనిచేస్తుంది",
+                step1: "కెమెరా నిజ-సమయ వీడియో ఫ్రేమ్‌లను క్యాప్చర్ చేస్తుంది",
+                step2: "YOLOv8 మోడల్ ప్రాసెస్ చేసి వస్తువులను గుర్తిస్తుంది",
+                step3: "గుర్తించిన లేబుల్‌లు Flask API బ్యాక్‌ఎండ్‌కు పంపబడతాయి",
+                step4: "gTTS ఇంజిన్ టెక్స్ట్‌ను బహుభాషా ఆడియోగా మారుస్తుంది",
+                step5: "ఆడియో అవుట్‌పుట్ ఎముక ప్రసారణ ద్వారా వినియోగదారుకు అందజేయబడుతుంది",
+                databaseLogging: "డేటాబేస్ లాగింగ్",
+                databaseDesc: "సిస్టమ్ అన్ని పరస్పర చర్యలను (గుర్తించిన వస్తువులు, ఎంచుకున్న భాష, టైమ్‌స్టాంప్‌లు) Flask బ్యాక్‌ఎండ్ ద్వారా SQLite డేటాబేస్‌లో విశ్లేషణ మరియు మెరుగుదల కోసం లాగ్ చేస్తుంది.",
+                technologyStack: "టెక్నాలజీ స్టాక్",
+                techList: "• ఆబ్జెక్ట్ గుర్తింపు కోసం YOLOv8\n• ప్రాసెసింగ్ కోసం Python & OpenCV\n• Flask API బ్యాక్‌ఎండ్\n• SQLite డేటాబేస్\n• gTTS బహుభాషా ఇంజిన్",
+                projectBy: "లావణ్య బొజ్జా ప్రాజెక్ట్",
+                empowering: "వినూత్న AI టెక్నాలజీ ద్వారా స్వాతంత్ర్యాన్ని శక్తివంతం చేయడం",
+                addToCart: "కార్ట్‌కు జోడించండి",
+                inStock: "స్టాక్‌లో ఉంది",
+                shoppingCart: "షాపింగ్ కార్ట్",
+                total: "మొత్తం",
+                proceedToCheckout: "చెక్అవుట్‌కు వెళ్లండి"
+            },
+            fr: {
+                title: "VISIONSPEAK: Les Lunettes Intelligentes AI Multilingues",
+                tagline: "Indépendance sans précédent alimentée par la vision par ordinateur en temps réel",
+                watchDemo: "Voir la Démo",
+                viewArchitecture: "Voir l'Architecture",
+                shopNow: "Acheter Maintenant",
+                ourProducts: "Nos Produits",
+                breakingBarriers: "Briser les Barrières dans l'Accessibilité Visuelle",
+                problemSolution: "Les aides visuelles traditionnelles sont limitées par les barrières linguistiques et nécessitent une interaction manuelle. VisionSpeak révolutionne l'indépendance pour les malvoyants avec des descriptions audio instantanées mains libres en plusieurs langues.",
+                smartSpectacles: "Nos lunettes intelligentes utilisent une vision par ordinateur AI avancée pour identifier des objets, obstacles et environnements en temps réel, fournissant un retour audio immédiat via des haut-parleurs à conduction osseuse tout en maintenant la conscience spatiale.",
+                coreFeatures: "Caractéristiques Principales",
+                globalVoice: "Voix Globale",
+                globalVoiceDesc: "Descriptions audio en 11 langues incluant hindi, télougou, tamoul, ourdou, kannada, malayalam, coréen, japonais, chinois et français. Briser les barrières linguistiques pour l'accessibilité mondiale.",
+                handsFree: "Design Mains Libres",
+                handsFreeDesc: "Lunettes ergonomiques avec haut-parleurs à conduction osseuse. Vision par ordinateur toujours active sans compromettre la conscience spatiale ou nécessiter une interaction manuelle.",
+                hapticAlerts: "Alertes Haptiques",
+                hapticAlertsDesc: "Alertes de vibration instantanées pour les obstacles critiques comme les véhicules approchants ou les escaliers raides. Conscience de sécurité immédiate au-delà du retour audio.",
+                systemArchitecture: "Architecture Système et Flux de Données",
+                howItWorks: "Comment Ça Marche",
+                step1: "La caméra capture des images vidéo en temps réel",
+                step2: "Le modèle YOLOv8 traite et détecte les objets",
+                step3: "Les étiquettes détectées sont envoyées au backend Flask API",
+                step4: "Le moteur gTTS convertit le texte en audio multilingue",
+                step5: "Sortie audio livrée à l'utilisateur via conduction osseuse",
+                databaseLogging: "Journalisation de Base de Données",
+                databaseDesc: "Le système journalise toutes les interactions (objets détectés, langue sélectionnée, horodatages) dans la base de données SQLite via le backend Flask pour l'analyse et l'amélioration.",
+                technologyStack: "Pile Technologique",
+                techList: "• YOLOv8 pour la détection d'objets\n• Python & OpenCV pour le traitement\n• Backend Flask API\n• Base de données SQLite\n• Moteur multilingue gTTS",
+                projectBy: "Projet par Lavanya Bojja",
+                empowering: "Donner des moyens d'indépendance grâce à une technologie AI innovante",
+                addToCart: "Ajouter au Panier",
+                inStock: "En Stock",
+                shoppingCart: "Panier d'Achat",
+                total: "Total",
+                proceedToCheckout: "Procéder au Paiement"
+            },
+            hi: {
+                title: "VISIONSPEAK: बहुभाषी AI स्मार्ट-स्पेक्स",
+                tagline: "वास्तविक समय कंप्यूटर दृष्टि द्वारा संचालित अभूतपूर्व स्वतंत्रता",
+                watchDemo: "डेमो देखें",
+                viewArchitecture: "आर्किटेक्चर देखें",
+                shopNow: "अभी खरीदें",
+                ourProducts: "हमारे उत्पाद",
+                breakingBarriers: "दृश्य पहुंच में बाधाओं को तोड़ना",
+                problemSolution: "पारंपरिक दृश्य सहायता भाषा की बाधाओं से सीमित हैं और हाथ से संपर्क की आवश्यकता है। VisionSpeak कई भाषाओं में हाथ-मुक्त, तत्काल ऑडियो विवरण के साथ दृष्टिबाधित लोगों के लिए स्वतंत्रता में क्रांति लाता है।",
+                smartSpectacles: "हमारे स्मार्ट चश्मे वस्तुओं, बाधाओं और वातावरण की वास्तविक समय में पहचान के लिए उन्नत AI कंप्यूटर दृष्टि का उपयोग करते हैं, स्थानिक जागरूकता बनाए रखते हुए अस्थि चालन स्पीकर के माध्यम से तत्काल ऑडियो प्रतिक्रिया प्रदान करते हैं।",
+                coreFeatures: "मुख्य विशेषताएं",
+                globalVoice: "वैश्विक आवाज",
+                globalVoiceDesc: "हिंदी, तेलुगु, तमिल, उर्दू, कन्नड़, मलयालम, कोरियाई, जापानी, चीनी और फ्रेंच सहित 11 भाषाओं में ऑडियो विवरण। वैश्विक पहुंच के लिए भाषा की बाधाओं को तोड़ना।",
+                handsFree: "हैंड्स-फ्री डिज़ाइन",
+                handsFreeDesc: "अस्थि चालन स्पीकर के साथ आर्गोनोमिक चश्मे। स्थानिक जागरूकता से समझौता किए बिना या हाथ की बातचीत की आवश्यकता के बिना हमेशा-चालू कंप्यूटर दृष्टि।",
+                hapticAlerts: "हैप्टिक अलर्ट",
+                hapticAlertsDesc: "आने वाले वाहनों या खड़ी सीढ़ियों जैसी महत्वपूर्ण बाधाओं के लिए तत्काल कंपन अलर्ट। ऑडियो प्रतिक्रिया से परे तत्काल सुरक्षा जागरूकता।",
+                systemArchitecture: "सिस्टम आर्किटेक्चर और डेटा फ्लो",
+                howItWorks: "यह कैसे काम करता है",
+                step1: "कैमरा वास्तविक समय वीडियो फ्रेम कैप्चर करता है",
+                step2: "YOLOv8 मॉडल ऑब्जेक्ट को प्रसंस्करण और पहचानता है",
+                step3: "पहचाने गए लेबल Flask API बैकएंड पर भेजे जाते हैं",
+                step4: "gTTS इंजन टेक्स्ट को बहुभाषी ऑडियो में परिवर्तित करता है",
+                step5: "ऑडियो आउटपुट अस्थि चालन के माध्यम से उपयोगकर्ता को वितरित किया जाता है",
+                databaseLogging: "डेटाबेस लॉगिंग",
+                databaseDesc: "सिस्टम Flask बैकएंड के माध्यम से SQLite डेटाबेस में सभी इंटरैक्शन (पहचाने गए ऑब्जेक्ट, चयनित भाषा, समयस्टैंप) को एनालिटिक्स और सुधार के लिए लॉग करता है।",
+                technologyStack: "प्रौद्योगिकी स्टैक",
+                techList: "• ऑब्जेक्ट डिटेक्शन के लिए YOLOv8\n• प्रसंस्करण के लिए Python & OpenCV\n• Flask API बैकएंड\n• SQLite डेटाबेस\n• gTTS बहुभाषी इंजन",
+                projectBy: "लावण्या बोज्जा द्वारा परियोजना",
+                empowering: "नवाचारी AI प्रौद्योगिकी के माध्यम से स्वतंत्रता को सशक्त बनाना",
+                addToCart: "कार्ट में जोड़ें",
+                inStock: "स्टॉक में",
+                shoppingCart: "शॉपिंग कार्ट",
+                total: "कुल",
+                proceedToCheckout: "चेकआउट के लिए आगे बढ़ें"
+            },
+            ur: {
+                title: "وِژن اسپیک: کثیر اللسانی AI سمارٹ چشمے",
+                tagline: "حقیقی وقت کمپیوٹر وژن سے چلنے والی بے مثال آزادی",
+                watchDemo: "ڈیمو دیکھیں",
+                viewArchitecture: "فن تعمیر دیکھیں",
+                shopNow: "ابھی خریدیں",
+                ourProducts: "ہمارے مصنوعات",
+                breakingBarriers: "بصری رسائی میں رکاوٹوں کو توڑنا",
+                problemSolution: "روایتی بصری امدادی آلات زبان کی رکاوٹوں سے محدود ہیں اور ہاتھ سے تعامل کی ضرورت ہے۔ وِژن اسپیک متعدد زبانوں میں ہاتھوں سے آزاد، فوری آڈیو تفصیلات کے ساتھ بصارت سے محروم افراد کے لیے آزادی میں انقلاب لاتا ہے۔",
+                smartSpectacles: "ہمارے سمارٹ چشمے اشیاء، رکاوٹوں اور ماحول کی حقیقی وقت میں شناخت کے لیے جدید AI کمپیوٹر وژن کا استعمال کرتے ہیں، مقامی آگاہی برقرار رکھتے ہوئے ہڈی کی ترسیل اسپیکرز کے ذریعے فوری آڈیو فیڈبیک فراہم کرتے ہیں۔",
+                coreFeatures: "بنیادی خصوصیات",
+                globalVoice: "عالمی آواز",
+                globalVoiceDesc: "ہندی، تیلگو، تامل، اردو، کنڑ، ملیالم، کورین، جاپانی، چینی اور فرانسیسی سمیت 11 زبانوں میں آڈیو تفصیلات۔ عالمی رسائی کے لیے زبان کی رکاوٹوں کو توڑنا۔",
+                handsFree: "ہینڈز فری ڈیزائن",
+                handsFreeDesc: "ہڈی کی ترسیل اسپیکرز کے ساتھ ایرگونومک چشمے۔ مقامی آگاہی سے سمجھوتہ کیے بغیر یا ہاتھ کی بات چیت کی ضرورت کے بغیر ہمیشہ آن کمپیوٹر وژن۔",
+                hapticAlerts: "ہیپٹک الرٹس",
+                hapticAlertsDesc: "آنے والی گاڑیوں یا کھڑی سیڑھیوں جیسی اہم رکاوٹوں کے لیے فوری کمپن الرٹس۔ آڈیو فیڈبیک سے آگے فوری حفاظتی آگاہی۔",
+                systemArchitecture: "سسٹم آرکیٹیکچر اور ڈیٹا فلو",
+                howItWorks: "یہ کیسے کام کرتا ہے",
+                step1: "کیمرہ حقیقی وقت ویڈیو فریم کیپچر کرتا ہے",
+                step2: "YOLOv8 ماڈل اشیاء کو پروسیس اور پہچانتا ہے",
+                step3: "پہچانے گئے لیبلز Flask API بیک اینڈ کو بھیجے جاتے ہیں",
+                step4: "gTTS انجن متن کو کثیر اللسانی آڈیو میں تبدیل کرتا ہے",
+                step5: "آڈیو آؤٹ پٹ ہڈی کی ترسیل کے ذریعے صارف کو فراہم کیا جاتا ہے",
+                databaseLogging: "ڈیٹا بیس لاگنگ",
+                databaseDesc: "سسٹم Flask بیک اینڈ کے ذریعے SQLite ڈیٹا بیس میں تمام تعاملات (پہچانی گئی اشیاء، منتخب زبان، ٹائم اسٹیمپس) کو تجزیات اور بہتری کے لیے لاگ کرتا ہے۔",
+                technologyStack: "ٹیکنالوجی اسٹیک",
+                techList: "• آبجیکٹ کی پہچان کے لیے YOLOv8\n• پروسیسنگ کے لیے Python & OpenCV\n• Flask API بیک اینڈ\n• SQLite ڈیٹا بیس\n• gTTS کثیر اللسانی انجن",
+                projectBy: "لاونیا بوججا کا پروجیکٹ",
+                empowering: "جدید AI ٹیکنالوجی کے ذریعے آزادی کو بااختیار بنانا",
+                addToCart: "کارٹ میں شامل کریں",
+                inStock: "اسٹاک میں",
+                shoppingCart: "شاپنگ کارٹ",
+                total: "کل",
+                proceedToCheckout: "چیک آؤٹ کے لیے آگے بڑھیں"
+            },
+            kn: {
+                title: "ವಿಷನ್‌ಸ್ಪೀಕ್: ಬಹುಭಾಷಾ AI ಸ್ಮಾರ್ಟ್-ಸ್ಪೆಕ್ಸ್",
+                tagline: "ರಿಯಲ್-ಟೈಮ್ ಕಂಪ್ಯೂಟರ್ ದೃಷ್ಟಿಯಿಂದ ಚಾಲಿತ ಅಭೂತಪೂರ್ವ ಸ್ವಾತಂತ್ರ್ಯ",
+                watchDemo: "ಡೆಮೊ ನೋಡಿ",
+                viewArchitecture: "ವಾಸ್ತುಶಿಲ್ಪ ನೋಡಿ",
+                shopNow: "ಈಗ ಖರೀದಿಸಿ",
+                ourProducts: "ನಮ್ಮ ಉತ್ಪನ್ನಗಳು",
+                breakingBarriers: "ದೃಶ್ಯ ಪ್ರವೇಶದಲ್ಲಿ ಅಡೆತಡೆಗಳನ್ನು ಮುರಿಯುವುದು",
+                problemSolution: "ಸಾಂಪ್ರದಾಯಿಕ ದೃಶ್ಯ ಸಹಾಯ ಸಾಧನಗಳು ಭಾಷಾ ಅಡೆತಡೆಗಳಿಂದ ಸೀಮಿತವಾಗಿವೆ ಮತ್ತು ಕೈಯಿಂದ ಸಂವಹನದ ಅಗತ್ಯವಿದೆ. ವಿಷನ್‌ಸ್ಪೀಕ್ ಬಹು ಭಾಷೆಗಳಲ್ಲಿ ಕೈ-ಮುಕ್ತ, ತತ್ಕ್ಷಣ ಆಡಿಯೊ ವಿವರಣೆಗಳೊಂದಿಗೆ ದೃಷ್ಟಿಹೀನರಿಗೆ ಸ್ವಾತಂತ್ರ್ಯದಲ್ಲಿ ಕ್ರಾಂತಿ ತರುತ್ತದೆ.",
+                smartSpectacles: "ನಮ್ಮ ಸ್ಮಾರ್ಟ್ ಕನ್ನಡಕಗಳು ವಸ್ತುಗಳು, ಅಡೆತಡೆಗಳು ಮತ್ತು ಪರಿಸರಗಳನ್ನು ನೈಜ ಸಮಯದಲ್ಲಿ ಗುರುತಿಸಲು ಮುಂದುವರಿದ AI ಕಂಪ್ಯೂಟರ್ ದೃಷ್ಟಿ ಬಳಸುತ್ತವೆ, ಪ್ರಾದೇಶಿಕ ಜಾಗೃತಿಯನ್ನು ನಿರ್ವಹಿಸುವಾಗ ಎಲುಬು ವಹನ ಸ್ಪೀಕರ್‌ಗಳ ಮೂಲಕ ತತ್ಕ್ಷಣ ಆಡಿಯೊ ಪ್ರತಿಕ್ರಿಯೆ ನೀಡುತ್ತವೆ.",
+                coreFeatures: "ಪ್ರಮುಖ ವೈಶಿಷ್ಟ್ಯಗಳು",
+                globalVoice: "ಜಾಗತಿಕ ಧ್ವನಿ",
+                globalVoiceDesc: "ಹಿಂದಿ, ತೆಲುಗು, ತಮಿಳು, ಉರ್ದು, ಕನ್ನಡ, ಮಲಯಾಳಂ, ಕೊರಿಯನ್, ಜಪಾನೀಸ್, ಚೈನೀಸ್ ಮತ್ತು ಫ್ರೆಂಚ್ ಸೇರಿದಂತೆ 11 ಭಾಷೆಗಳಲ್ಲಿ ಆಡಿಯೊ ವಿವರಣೆಗಳು. ಜಾಗತಿಕ ಪ್ರವೇಶಕ್ಕಾಗಿ ಭಾಷಾ ಅಡೆತಡೆಗಳನ್ನು ಮುರಿಯುವುದು.",
+                handsFree: "ಹ್ಯಾಂಡ್ಸ್-ಫ್ರೀ ವಿನ್ಯಾಸ",
+                handsFreeDesc: "ಎಲುಬು ವಹನ ಸ್ಪೀಕರ್‌ಗಳೊಂದಿಗೆ ಎರ್ಗೋನಾಮಿಕ್ ಕನ್ನಡಕಗಳು. ಪ್ರಾದೇಶಿಕ ಜಾಗೃತಿಯನ್ನು ರಾಜಿ ಮಾಡದೆ ಅಥವಾ ಕೈ ಸಂವಹನದ ಅಗತ್ಯವಿಲ್ಲದೆ ಯಾವಾಗಲೂ-ಆನ್ ಕಂಪ್ಯೂಟರ್ ದೃಷ್ಟಿ.",
+                hapticAlerts: "ಹ್ಯಾಪ್ಟಿಕ್ ಎಚ್ಚರಿಕೆಗಳು",
+                hapticAlertsDesc: "ಸಮೀಪಿಸುತ್ತಿರುವ ವಾಹನಗಳು ಅಥವಾ ಕಡಿದಾದ ಮೆಟ್ಟಿಲುಗಳಂತಹ ನಿರ್ಣಾಯಕ ಅಡೆತಡೆಗಳಿಗಾಗಿ ತ್ವರಿತ ಕಂಪನ ಎಚ್ಚರಿಕೆಗಳು. ಆಡಿಯೊ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಮೀರಿದ ತತ್ಕಾಲ ಸುರಕ್ಷತಾ ಜಾಗೃತಿ.",
+                systemArchitecture: "ಸಿಸ್ಟಮ್ ಆರ್ಕಿಟೆಕ್ಚರ್ & ಡೇಟಾ ಹರಿವು",
+                howItWorks: "ಇದು ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ",
+                step1: "ಕ್ಯಾಮೆರಾ ನೈಜ-ಸಮಯ ವೀಡಿಯೊ ಫ್ರೇಮ್‌ಗಳನ್ನು ಸೆರೆಹಿಡಿಯುತ್ತದೆ",
+                step2: "YOLOv8 ಮಾಡೆಲ್ ಪ್ರಕ್ರಿಯೆ ಮತ್ತು ವಸ್ತುಗಳನ್ನು ಪತ್ತೆ ಮಾಡುತ್ತದೆ",
+                step3: "ಪತ್ತೆಯಾದ ಲೇಬಲ್‌ಗಳನ್ನು Flask API ಬ್ಯಾಕೆಂಡ್‌ಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ",
+                step4: "gTTS ಎಂಜಿನ್ ಪಠ್ಯವನ್ನು ಬಹುಭಾಷಾ ಆಡಿಯೊಗೆ ಪರಿವರ್ತಿಸುತ್ತದೆ",
+                step5: "ಆಡಿಯೊ ಔಟ್‌ಪುಟ್ ಎಲುಬು ವಹನದ ಮೂಲಕ ಬಳಕೆದಾರರಿಗೆ ತಲುಪಿಸಲಾಗುತ್ತದೆ",
+                databaseLogging: "ಡೇಟಾಬೇಸ್ ಲಾಗಿಂಗ್",
+                databaseDesc: "ಸಿಸ್ಟಮ್ ಎಲ್ಲಾ ಸಂವಹನಗಳನ್ನು (ಪತ್ತೆಯಾದ ವಸ್ತುಗಳು, ಆಯ್ಕೆಮಾಡಿದ ಭಾಷೆ, ಟೈಮ್‌ಸ್ಟ್ಯಾಂಪ್‌ಗಳು) Flask ಬ್ಯಾಕೆಂಡ್ ಮೂಲಕ SQLite ಡೇಟಾಬೇಸ್‌ನಲ್ಲಿ ವಿಶ್ಲೇಷಣೆ ಮತ್ತು ಸುಧಾರಣೆಗಾಗಿ ಲಾಗ್ ಮಾಡುತ್ತದೆ.",
+                technologyStack: "ತಂತ್ರಜ್ಞಾನ ಸ್ಟಾಕ್",
+                techList: "• ವಸ್ತು ಪತ್ತೆಗಾಗಿ YOLOv8\n• ಪ್ರಕ್ರಿಯೆಗಾಗಿ Python & OpenCV\n• Flask API ಬ್ಯಾಕೆಂಡ್\n• SQLite ಡೇಟಾಬೇಸ್\n• gTTS ಬಹುಭಾಷಾ ಎಂಜಿನ್",
+                projectBy: "ಲಾವಣ್ಯ ಬೊಜ್ಜ ಯೋಜನೆ",
+                empowering: "ನವೀನ AI ತಂತ್ರಜ್ಞಾನದ ಮೂಲಕ ಸ್ವಾತಂತ್ರ್ಯವನ್ನು ಸಬಲೀಕರಣಗೊಳಿಸುವುದು",
+                addToCart: "ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ",
+                inStock: "ಸ್ಟಾಕ್‌ನಲ್ಲಿದೆ",
+                shoppingCart: "ಶಾಪಿಂಗ್ ಕಾರ್ಟ್",
+                total: "ಒಟ್ಟು",
+                proceedToCheckout: "ಚೆಕ್‌ಔಟ್‌ಗೆ ಮುಂದುವರಿಯಿರಿ"
+            },
+            ml: {
+                title: "വിഷൻസ്‌പീക്ക്: ബഹുഭാഷാ AI സ്മാർട്ട്-സ്‌പെക്സ്",
+                tagline: "റിയൽ-ടൈം കമ്പ്യൂട്ടർ വിഷൻ വഴി പ്രവർത്തിപ്പിക്കുന്ന അഭൂതപൂർവ്വമായ സ്വാതന്ത്ര്യം",
+                watchDemo: "ഡെമോ കാണുക",
+                viewArchitecture: "ആർക്കിടെക്ചർ കാണുക",
+                shopNow: "ഇപ്പോൾ വാങ്ങുക",
+                ourProducts: "ഞങ്ങളുടെ ഉൽപ്പന്നങ്ങൾ",
+                breakingBarriers: "ദൃശ്യ പ്രവേശനത്തിൽ തടസ്സങ്ങൾ തകർക്കൽ",
+                problemSolution: "പരമ്പരാഗത ദൃശ്യ സഹായ ഉപകരണങ്ങൾ ഭാഷാ തടസ്സങ്ങളാൽ പരിമിതപ്പെടുത്തിയിരിക്കുന്നു, കൈകൊണ്ട് ഇടപെടൽ ആവശ്യമാണ്. വിഷൻസ്‌പീക്ക് ഒന്നിലധികം ഭാഷകളിൽ കൈകൾ-സ്വതന്ത്ര, തൽക്ഷണ ഓഡിയോ വിവരണങ്ങളോടെ കാഴ്ചയില്ലാത്തവർക്ക് സ്വാതന്ത്ര്യത്തിൽ വിപ്ലവം സൃഷ്ടിക്കുന്നു.",
+                smartSpectacles: "ഞങ്ങളുടെ സ്മാർട്ട് കണ്ണടകൾ വസ്തുക്കൾ, തടസ്സങ്ങൾ, പരിസരങ്ങൾ എന്നിവ തത്സമയം തിരിച്ചറിയാൻ വിപുലമായ AI കമ്പ്യൂട്ടർ വിഷൻ ഉപയോഗിക്കുന്നു, സ്ഥലീയ ബോധം നിലനിർത്തിക്കൊണ്ട് അസ്ഥി ചാലക സ്പീക്കറുകൾ വഴി തൽക്ഷണ ഓഡിയോ പ്രതികരണം നൽകുന്നു.",
+                coreFeatures: "പ്രധാന സവിശേഷതകൾ",
+                globalVoice: "ആഗോള ശബ്ദം",
+                globalVoiceDesc: "ഹിന്ദി, തെലുങ്ക്, തമിഴ്, ഉർദു, കന്നഡ, മലയാളം, കൊറിയൻ, ജാപ്പനീസ്, ചൈനീസ്, ഫ്രഞ്ച് എന്നിവയുൾപ്പെടെ 11 ഭാഷകളിൽ ഓഡിയോ വിവരണങ്ങൾ. ആഗോള പ്രവേശനത്തിനായി ഭാഷാ തടസ്സങ്ങൾ തകർക്കൽ.",
+                handsFree: "ഹാൻഡ്സ്-ഫ്രീ ഡിസൈൻ",
+                handsFreeDesc: "അസ്ഥി ചാലക സ്പീക്കറുകളോടുകൂടിയ എർഗണോമിക് കണ്ണട. സ്ഥലീയ ബോധം വിട്ടുവീഴ്ച ചെയ്യാതെ അല്ലെങ്കിൽ കൈ ഇടപെടൽ ആവശ്യമില്ലാതെ എപ്പോഴും-ഓൺ കമ്പ്യൂട്ടർ വിഷൻ.",
+                hapticAlerts: "ഹാപ്റ്റിക് അലേർട്ടുകൾ",
+                hapticAlertsDesc: "സമീപിക്കുന്ന വാഹനങ്ങൾ അല്ലെങ്കിൽ കുത്തനെയുള്ള പടികൾ പോലുള്ള നിർണായക തടസ്സങ്ങൾക്കായി തൽക്ഷണ കമ്പന അലേർട്ടുകൾ. ഓഡിയോ പ്രതികരണത്തിനപ്പുറം ഉടനടി സുരക്ഷാ ബോധം.",
+                systemArchitecture: "സിസ്റ്റം ആർക്കിടെക്ചർ & ഡാറ്റ ഫ്ലോ",
+                howItWorks: "ഇത് എങ്ങനെ പ്രവർത്തിക്കുന്നു",
+                step1: "കാമറ തത്സമയ വീഡിയോ ഫ്രെയിമുകൾ പിടിച്ചെടുക്കുന്നു",
+                step2: "YOLOv8 മോഡൽ പ്രോസസ് ചെയ്യുകയും വസ്തുക്കൾ കണ്ടെത്തുകയും ചെയ്യുന്നു",
+                step3: "കണ്ടെത്തിയ ലേബലുകൾ Flask API ബാക്കെൻഡിലേക്ക് അയയ്ക്കുന്നു",
+                step4: "gTTS എഞ്ചിൻ ടെക്സ്റ്റ് ബഹുഭാഷാ ഓഡിയോ ആക്കി മാറ്റുന്നു",
+                step5: "ഓഡിയോ ഔട്ട്പുട്ട് അസ്ഥി ചാലകം വഴി ഉപയോക്താവിന് എത്തിക്കുന്നു",
+                databaseLogging: "ഡാറ്റാബേസ് ലോഗിംഗ്",
+                databaseDesc: "സിസ്റ്റം എല്ലാ ഇടപെടലുകളും (കണ്ടെത്തിയ വസ്തുക്കൾ, തിരഞ്ഞെടുത്ത ഭാഷ, ടൈംസ്റ്റാമ്പുകൾ) Flask ബാക്കെൻഡ് വഴി SQLite ഡാറ്റാബേസിൽ വിശകലനത്തിനും മെച്ചപ്പെടുത്തലിനുമായി ലോഗ് ചെയ്യുന്നു.",
+                technologyStack: "സാങ്കേതികവിദ്യ സ്റ്റാക്ക്",
+                techList: "• ഒബ്ജക്റ്റ് കണ്ടെത്തലിനായി YOLOv8\n• പ്രോസസ്സിംഗിനായി Python & OpenCV\n• Flask API ബാക്കെൻഡ്\n• SQLite ഡാറ്റാബേസ്\n• gTTS ബഹുഭാഷാ എഞ്ചിൻ",
+                projectBy: "ലാവണ്യ ബോജ്ജ പദ്ധതി",
+                empowering: "നൂതന AI സാങ്കേതികവിദ്യയിലൂടെ സ്വാതന്ത്ര്യം ശാക്തീകരിക്കൽ",
+                addToCart: "കാർട്ടിലേക്ക് ചേർക്കുക",
+                inStock: "സ്റ്റോക്കിൽ ഉണ്ട്",
+                shoppingCart: "ഷോപ്പിംഗ് കാർട്ട്",
+                total: "ആകെ",
+                proceedToCheckout: "ചെക്കൗട്ടിലേക്ക് പോകുക"
+            },
+            ko: {
+                title: "비전스피크: 다국어 AI 스마트 안경",
+                tagline: "실시간 컴퓨터 비전으로 구동되는 전례없는 독립성",
+                watchDemo: "데모 보기",
+                viewArchitecture: "아키텍처 보기",
+                shopNow: "지금 구매",
+                ourProducts: "우리 제품",
+                breakingBarriers: "시각적 접근성의 장벽 허물기",
+                problemSolution: "전통적인 시각 보조 장치는 언어 장벽으로 제한되며 손으로 상호작용이 필요합니다. 비전스피크는 여러 언어로 손을 자유롭게 하고 즉각적인 오디오 설명으로 시각 장애인의 독립성에 혁명을 일으킵니다.",
+                smartSpectacles: "우리의 스마트 안경은 고급 AI 컴퓨터 비전을 사용하여 실시간으로 물체, 장애물 및 환경을 식별하고 공간 인식을 유지하면서 골전도 스피커를 통해 즉각적인 오디오 피드백을 제공합니다.",
+                coreFeatures: "핵심 기능",
+                globalVoice: "글로벌 음성",
+                globalVoiceDesc: "힌디어, 텔루구어, 타밀어, 우르두어, 칸나다어, 말라얄람어, 한국어, 일본어, 중국어, 프랑스어를 포함한 11개 언어의 오디오 설명. 글로벌 접근성을 위한 언어 장벽 허물기.",
+                handsFree: "핸즈프리 디자인",
+                handsFreeDesc: "골전도 스피커가 있는 인체공학적 안경. 공간 인식을 손상시키지 않거나 손 상호작용이 필요없이 항상 켜진 컴퓨터 비전.",
+                hapticAlerts: "햅틱 경고",
+                hapticAlertsDesc: "다가오는 차량이나 가파른 계단과 같은 중요한 장애물에 대한 즉각적인 진동 경고. 오디오 피드백을 넘어서는 즉각적인 안전 인식.",
+                systemArchitecture: "시스템 아키텍처 및 데이터 흐름",
+                howItWorks: "작동 방식",
+                step1: "카메라가 실시간 비디오 프레임 캡처",
+                step2: "YOLOv8 모델이 처리하고 객체 감지",
+                step3: "감지된 레이블이 Flask API 백엔드로 전송",
+                step4: "gTTS 엔진이 텍스트를 다국어 오디오로 변환",
+                step5: "오디오 출력이 골전도를 통해 사용자에게 전달",
+                databaseLogging: "데이터베이스 로깅",
+                databaseDesc: "시스템은 Flask 백엔드를 통해 모든 상호작용(감지된 객체, 선택한 언어, 타임스탬프)을 SQLite 데이터베이스에 분석 및 개선을 위해 로그합니다.",
+                technologyStack: "기술 스택",
+                techList: "• 객체 감지를 위한 YOLOv8\n• 처리를 위한 Python & OpenCV\n• Flask API 백엔드\n• SQLite 데이터베이스\n• gTTS 다국어 엔진",
+                projectBy: "라반야 보자 프로젝트",
+                empowering: "혁신적인 AI 기술을 통한 독립성 강화",
+                addToCart: "장바구니에 추가",
+                inStock: "재고 있음",
+                shoppingCart: "장바구니",
+                total: "합계",
+                proceedToCheckout: "결제 진행"
+            },
+            ja: {
+                title: "ビジョンスピーク：多言語AIスマートグラス",
+                tagline: "リアルタイムコンピュータビジョンによる前例のない独立性",
+                watchDemo: "デモを見る",
+                viewArchitecture: "アーキテクチャを見る",
+                shopNow: "今すぐ購入",
+                ourProducts: "私たちの製品",
+                breakingBarriers: "視覚的アクセシビリティの障壁を破る",
+                problemSolution: "従来の視覚補助装置は言語の障壁により制限されており、手による相互作用が必要です。ビジョンスピークは、複数の言語でハンズフリーで即座の音声説明により、視覚障害者の独立性に革命をもたらします。",
+                smartSpectacles: "私たちのスマートグラスは、高度なAIコンピュータビジョンを使用してオブジェクト、障害物、環境をリアルタイムで識別し、空間認識を維持しながら骨伝導スピーカーを通じて即座の音声フィードバックを提供します。",
+                coreFeatures: "主な機能",
+                globalVoice: "グローバル音声",
+                globalVoiceDesc: "ヒンディー語、テルグ語、タミル語、ウルドゥー語、カンナダ語、マラヤーラム語、韓国語、日本語、中国語、フランス語を含む11言語での音声説明。グローバルアクセシビリティのための言語障壁の打破。",
+                handsFree: "ハンズフリーデザイン",
+                handsFreeDesc: "骨伝導スピーカー付きの人間工学的なグラス。空間認識を損なうことなく、または手による相互作用を必要とせずに常時オンのコンピュータビジョン。",
+                hapticAlerts: "ハプティックアラート",
+                hapticAlertsDesc: "接近する車両や急な階段などの重要な障害物に対する即座の振動アラート。音声フィードバックを超えた即座の安全認識。",
+                systemArchitecture: "システムアーキテクチャとデータフロー",
+                howItWorks: "仕組み",
+                step1: "カメラがリアルタイムのビデオフレームをキャプチャ",
+                step2: "YOLOv8モデルが処理してオブジェクトを検出",
+                step3: "検出されたラベルがFlask APIバックエンドに送信",
+                step4: "gTTSエンジンがテキストを多言語オーディオに変換",
+                step5: "オーディオ出力が骨伝導を通じてユーザーに配信",
+                databaseLogging: "データベースロギング",
+                databaseDesc: "システムは、Flaskバックエンドを介してすべてのインタラクション（検出されたオブジェクト、選択された言語、タイムスタンプ）をSQLiteデータベースに分析と改善のためにログします。",
+                technologyStack: "テクノロジースタック",
+                techList: "• オブジェクト検出のためのYOLOv8\n• 処理のためのPython & OpenCV\n• Flask APIバックエンド\n• SQLiteデータベース\n• gTTS多言語エンジン",
+                projectBy: "ラバニヤ・ボジャのプロジェクト",
+                empowering: "革新的なAI技術による独立性の強化",
+                addToCart: "カートに追加",
+                inStock: "在庫あり",
+                shoppingCart: "ショッピングカート",
+                total: "合計",
+                proceedToCheckout: "チェックアウトへ進む"
+            },
+            zh: {
+                title: "视觉演讲：多语言AI智能眼镜",
+                tagline: "由实时计算机视觉驱动的前所未有的独立性",
+                watchDemo: "观看演示",
+                viewArchitecture: "查看架构",
+                shopNow: "立即购买",
+                ourProducts: "我们的产品",
+                breakingBarriers: "打破视觉可访问性的障碍",
+                problemSolution: "传统的视觉辅助设备受到语言障碍的限制，需要手动交互。视觉演讲通过多种语言的免提即时音频描述，彻底改变了视障人士的独立性。",
+                smartSpectacles: "我们的智能眼镜使用先进的AI计算机视觉实时识别物体、障碍物和环境，通过骨传导扬声器提供即时音频反馈，同时保持空间意识。",
+                coreFeatures: "核心功能",
+                globalVoice: "全球语音",
+                globalVoiceDesc: "包括印地语、泰卢固语、泰米尔语、乌尔都语、卡纳达语、马拉雅拉姆语、韩语、日语、中文和法语在内的11种语言的音频描述。打破语言障碍，实现全球可访问性。",
+                handsFree: "免提设计",
+                handsFreeDesc: "带有骨传导扬声器的人体工学眼镜。始终开启的计算机视觉，无需妥协空间意识或需要手动交互。",
+                hapticAlerts: "触觉警报",
+                hapticAlertsDesc: "针对关键障碍物（如接近的车辆或陡峭的楼梯）的即时振动警报。超越音频反馈的即时安全意识。",
+                systemArchitecture: "系统架构和数据流",
+                howItWorks: "工作原理",
+                step1: "相机捕获实时视频帧",
+                step2: "YOLOv8模型处理并检测物体",
+                step3: "检测到的标签发送到Flask API后端",
+                step4: "gTTS引擎将文本转换为多语言音频",
+                step5: "音频输出通过骨传导传递给用户",
+                databaseLogging: "数据库日志记录",
+                databaseDesc: "系统通过Flask后端将所有交互（检测到的对象、选定的语言、时间戳）记录到SQLite数据库中，用于分析和改进。",
+                technologyStack: "技术栈",
+                techList: "• 用于物体检测的YOLOv8\n• 用于处理的Python & OpenCV\n• Flask API后端\n• SQLite数据库\n• gTTS多语言引擎",
+                projectBy: "拉万尼亚·博贾项目",
+                empowering: "通过创新的AI技术赋予独立性",
+                addToCart: "添加到购物车",
+                inStock: "有货",
+                shoppingCart: "购物车",
+                total: "总计",
+                proceedToCheckout: "进行结账"
+            }
+        };
+
+        // Enhanced voice commands for new languages
+        const voiceCommands = {
+            en: {
+                'demo': () => showDemoModal(),
+                'watch demo': () => showDemoModal(),
+                'show demo': () => showDemoModal(),
+                'play video': () => playDemoVideo(),
+                'start video': () => playDemoVideo(),
+                'play': () => playDemoVideo(),
+                'stop video': () => stopDemoVideo(),
+                'pause video': () => stopDemoVideo(),
+                'stop': () => stopDemoVideo(),
+                'architecture': () => showArchitectureModal(),
+                'view architecture': () => showArchitectureModal(),
+                'show architecture': () => showArchitectureModal(),
+                'shop': () => scrollToSection('products'),
+                'products': () => scrollToSection('products'),
+                'cart': () => showCartModal(),
+                'shopping cart': () => showCartModal(),
+                'home': () => scrollToSection('home'),
+                'features': () => scrollToSection('features'),
+                'pause': () => pauseReading(),
+                'stop': () => pauseReading(),
+                'resume': () => resumeReading(),
+                'continue': () => resumeReading(),
+                'play': () => resumeReading(),
+                'close': () => closeModals(),
+                'close demo': () => closeModals(),
+                'close demo video': () => closeModals(),
+                'close architecture': () => closeModals(),
+                'close cart': () => closeModals(),
+                'close shopping cart': () => closeModals(),
+                'proceed to checkout': () => showPaymentOptions(),
+                'checkout': () => showPaymentOptions(),
+                'continue with payment': () => showPaymentOptions(),
+                'proceed to payment': () => showPaymentOptions(),
+                'pay now': () => showPaymentOptions(),
+                'add to cart': () => showCartModal(),
+                'add product to cart': () => showCartModal(),
+                'add visionspeak pro to cart': () => { addToCart(1); showVoiceFeedback('✅ Added Vision Speak Pro to cart'); },
+                'add vision speak pro to cart': () => { addToCart(1); showVoiceFeedback('✅ Added Vision Speak Pro to cart'); },
+                'add visionspeak lite to cart': () => { addToCart(2); showVoiceFeedback('✅ Added Vision Speak Lite to cart'); },
+                'add vision speak lite to cart': () => { addToCart(2); showVoiceFeedback('✅ Added Vision Speak Lite to cart'); },
+                'add visionspeak max to cart': () => { addToCart(3); showVoiceFeedback('✅ Added Vision Speak Max to cart'); },
+                'add vision speak max to cart': () => { addToCart(3); showVoiceFeedback('✅ Added Vision Speak Max to cart'); },
+                'view cart': () => showCartModal(),
+                'open cart': () => showCartModal(),
+                'show cart': () => showCartModal(),
+                'zoom in architecture': () => { const modal = document.getElementById('architectureModal'); modal.classList.add('zoom-in'); showVoiceFeedback('Zooming in architecture'); },
+                'zoom out architecture': () => { const modal = document.getElementById('architectureModal'); modal.classList.remove('zoom-in'); showVoiceFeedback('Zooming out architecture'); },
+                'english': () => changeLanguage('en'),
+                'french': () => changeLanguage('fr'),
+                'hindi': () => changeLanguage('hi'),
+                'telugu': () => changeLanguage('te'),
+                'tamil': () => changeLanguage('ta'),
+                'urdu': () => changeLanguage('ur'),
+                'kannada': () => changeLanguage('kn'),
+                'malayalam': () => changeLanguage('ml'),
+                'korean': () => changeLanguage('ko'),
+                'japanese': () => changeLanguage('ja'),
+                'chinese': () => changeLanguage('zh'),
+                'light mode': () => toggleTheme(),
+                'dark mode': () => toggleTheme(),
+                'toggle theme': () => toggleTheme(),
+                'change language to': (command) => {
+                    const langMap = {
+                        'english': 'en', 'french': 'fr', 'hindi': 'hi', 'telugu': 'te',
+                        'tamil': 'ta', 'urdu': 'ur', 'kannada': 'kn', 'malayalam': 'ml',
+                        'korean': 'ko', 'japanese': 'ja', 'chinese': 'zh'
+                    };
+                    for (const [lang, code] of Object.entries(langMap)) {
+                        if (command.includes(lang)) {
+                            changeLanguage(code);
+                            return;
+                        }
+                    }
+                }
+            }
+        };
+
+        // Initialize Continuous Speech Recognition
+        function initSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = false; // Changed to false for better accuracy
+                recognition.lang = getLanguageCode(currentLanguage);
+                recognition.maxAlternatives = 1; // Only return the best match
+
+                recognition.onstart = () => {
+                    isListening = true;
+                    document.getElementById('listeningIndicator').style.display = 'block';
+                    showVoiceFeedback('🎤 Always listening for commands...');
+                };
+
+                recognition.onresult = (event) => {
+                    let finalTranscript = '';
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        if (event.results[i].isFinal) {
+                            finalTranscript += event.results[i][0].transcript;
+                        }
+                    }
+
+                    if (finalTranscript) {
+                        const command = finalTranscript.toLowerCase().trim();
+                        showVoiceFeedback(`🎯 Command: "${command}"`);
+                        processVoiceCommand(command);
+                    }
+                };
+
+                recognition.onerror = (event) => {
+                    console.log('Voice recognition error:', event.error);
+                    setTimeout(() => {
+                        if (!isListening) {
+                            startContinuousListening();
+                        }
+                    }, 1000);
+                };
+
+                recognition.onend = () => {
+                    if (isListening) {
+                        setTimeout(() => {
+                            startContinuousListening();
+                        }, 100);
+                    }
+                };
+            }
+        }
+
+        function startContinuousListening() {
+            if (recognition && !isListening) {
+                recognition.lang = getLanguageCode(currentLanguage);
+                try {
+                    recognition.start();
+                } catch (e) {
+                    console.log('Recognition start error:', e);
+                }
+            }
+        }
+
+        function processVoiceCommand(command) {
+            // Volume controls
+            if (command.includes('volume up') || command.includes('increase volume') || command.includes('louder')) {
+                increaseVolume();
+                return;
+            }
+            if (command.includes('volume down') || command.includes('decrease volume') || command.includes('quieter')) {
+                decreaseVolume();
+                return;
+            }
+            if (command.includes('turn on volume') || command.includes('unmute') || command.includes('volume on')) {
+                unmuteVolume();
+                return;
+            }
+            if (command.includes('turn off volume') || command.includes('mute') || command.includes('volume off')) {
+                muteVolume();
+                return;
+            }
+            if (command.includes('full volume') || command.includes('maximum volume') || command.includes('max volume')) {
+                setMaxVolume();
+                return;
+            }
+
+            const commands = voiceCommands[currentLanguage] || voiceCommands.en;
+
+            // Find matching command
+            for (const [key, action] of Object.entries(commands)) {
+                if (command.includes(key)) {
+                    if (typeof action === 'function') {
+                        action(command);
+                    } else {
+                        action();
+                    }
+                    showVoiceFeedback(`✅ Executing: ${key}`);
+                    return;
+                }
+            }
+
+            showVoiceFeedback('❌ Command not recognized. Try "demo", "shop", "cart", or language names.');
+        }
+
+        // Volume control functions
+        function increaseVolume() {
+            currentVolume = Math.min(1.0, currentVolume + 0.2);
+            updateVolume();
+            showVoiceFeedback(`🔊 Volume increased to ${Math.round(currentVolume * 100)}%`);
+            showVolumeIndicator();
+        }
+
+        function decreaseVolume() {
+            currentVolume = Math.max(0.1, currentVolume - 0.2);
+            updateVolume();
+            showVoiceFeedback(`🔉 Volume decreased to ${Math.round(currentVolume * 100)}%`);
+            showVolumeIndicator();
+        }
+
+        function muteVolume() {
+            if (!isMuted) {
+                previousVolume = currentVolume;
+                currentVolume = 0;
+                isMuted = true;
+                updateVolume();
+                showVoiceFeedback('🔇 Volume muted');
+                showVolumeIndicator();
+            }
+        }
+
+        function unmuteVolume() {
+            if (isMuted) {
+                currentVolume = previousVolume;
+                isMuted = false;
+                updateVolume();
+                showVoiceFeedback(`🔊 Volume unmuted - ${Math.round(currentVolume * 100)}%`);
+                showVolumeIndicator();
+            } else {
+                currentVolume = Math.max(0.5, currentVolume);
+                updateVolume();
+                showVoiceFeedback(`🔊 Volume turned on - ${Math.round(currentVolume * 100)}%`);
+                showVolumeIndicator();
+            }
+        }
+
+        function setMaxVolume() {
+            currentVolume = 1.0;
+            isMuted = false;
+            updateVolume();
+            showVoiceFeedback('🔊 Volume set to maximum - 100%');
+            showVolumeIndicator();
+        }
+
+        function updateVolume() {
+            if (currentUtterance) {
+                currentUtterance.volume = currentVolume;
+            }
+
+            const videos = document.querySelectorAll('video');
+            videos.forEach(video => {
+                video.volume = currentVolume;
+            });
+        }
+
+        function showVolumeIndicator() {
+            const indicator = document.getElementById('volumeIndicator');
+            indicator.textContent = isMuted ? 'Volume: Muted' : `Volume: ${Math.round(currentVolume * 100)}%`;
+            indicator.style.display = 'block';
+            setTimeout(() => {
+                indicator.style.display = 'none';
+            }, 2000);
+        }
+
+        function showVoiceFeedback(message) {
+            const feedback = document.getElementById('voiceFeedback');
+            feedback.textContent = message;
+            feedback.style.display = 'block';
+            setTimeout(() => hideVoiceFeedback(), 3000);
+        }
+
+        function hideVoiceFeedback() {
+            document.getElementById('voiceFeedback').style.display = 'none';
+        }
+
+        // Theme toggle function
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+
+            if (isDarkMode) {
+                body.classList.remove('light-mode');
+                themeIcon.textContent = '🌙';
+            } else {
+                body.classList.add('light-mode');
+                themeIcon.textContent = '☀️';
+            }
+        }
+
+        // Shopping functions
+        function addToCart(productId) {
+            const product = products[productId];
+            if (product) {
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ id: productId, ...product, quantity: 1 });
+                }
+                updateCartUI();
+                showVoiceFeedback(`Added ${product.name} to cart`);
+            }
+        }
+
+        function addToWishlist(productId) {
+            const product = products[productId];
+            if (product) {
+                const index = wishlist.indexOf(productId);
+                if (index > -1) {
+                    wishlist.splice(index, 1);
+                    showVoiceFeedback(`Removed ${product.name} from wishlist`);
+                } else {
+                    wishlist.push(productId);
+                    showVoiceFeedback(`Added ${product.name} to wishlist`);
+                }
+                updateWishlistUI();
+            }
+        }
+
+        function updateCartUI() {
+            const cartBadge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (totalItems > 0) {
+                cartBadge.textContent = totalItems;
+                cartBadge.style.display = 'flex';
+            } else {
+                cartBadge.style.display = 'none';
+            }
+        }
+
+        function updateWishlistUI() {
+            document.querySelectorAll('.wishlist-heart').forEach(heart => {
+                const productId = parseInt(heart.dataset.product);
+                if (wishlist.includes(productId)) {
+                    heart.classList.add('active');
+                    heart.innerHTML = '<span>♥</span>';
+                } else {
+                    heart.classList.remove('active');
+                    heart.innerHTML = '<span>♡</span>';
+                }
+            });
+        }
+
+        function showCartModal() {
+            const modal = document.getElementById('cartModal');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const price = Math.round(item.price * currencyRates[currentCurrency]);
+                const currencySymbol = getCurrencySymbol(currentCurrency);
+                total += price * item.quantity;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'flex justify-between items-center p-4 border rounded-lg';
+                itemDiv.style.borderColor = 'var(--border-color)';
+                itemDiv.innerHTML = `
+                    <div>
+                        <h3 class="font-bold text-adaptive">${item.name}</h3>
+                        <p class="text-adaptive-secondary">${currencySymbol}${price} × ${item.quantity}</p>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700">Remove</button>
+                `;
+                cartItems.appendChild(itemDiv);
+            });
+
+            const currencySymbol = getCurrencySymbol(currentCurrency);
+            cartTotal.textContent = `${currencySymbol}${Math.round(total)}`;
+            modal.classList.add('show');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+            showCartModal();
+        }
+
+        function getCurrencySymbol(currency) {
+            const symbols = {
+                'INR': '₹',
+                'USD': '$',
+                'EUR': '€',
+                'GBP': '£',
+                'JPY': '¥'
+            };
+            return symbols[currency] || '₹';
+        }
+
+        // Modal functions with auto-close and voice control
+        let demoAutoCloseTimer = null;
+        let isVideoPlaying = false;
+
+        function showDemoModal() {
+            document.getElementById('demoModal').classList.add('show');
+            // Don't auto-play - wait for user to click Play button or say voice command
+            document.getElementById('demoVideoFrame').src = 'https://www.youtube-nocookie.com/embed/meC445N2dFU?controls=1&rel=0&modestbranding=1';
+            isVideoPlaying = false;
+
+            // Only auto-read and auto-close the FIRST time
+            if (!demoOpenedOnce) {
+                demoOpenedOnce = true; // Mark as opened
+
+                setTimeout(() => {
+                    // Speak instructions
+                    speakText('Demo video ready. Click the Play button or say "Play video" to start watching. I will automatically close this in 5 seconds if you do not interact.');
+
+                    // Auto-close after 5 seconds if no command
+                    demoAutoCloseTimer = setTimeout(() => {
+                        closeModals();
+                        // Continue to next section
+                        speakText('Moving to products section.');
+                        setTimeout(() => {
+                            scrollToSection('products');
+                            startReading();
+                        }, 1000);
+                    }, 5000);
+                }, 500);
+            } else {
+                // After first time, just show instructions
+                setTimeout(() => {
+                    speakText('Demo video ready. Click Play button or say "Play video" to watch.');
+                }, 500);
+            }
+        }
+
+        function playDemoVideo() {
+            if (demoAutoCloseTimer) clearTimeout(demoAutoCloseTimer);
+            const iframe = document.getElementById('demoVideoFrame');
+            // Force reload with autoplay
+            iframe.src = 'https://www.youtube-nocookie.com/embed/meC445N2dFU?autoplay=1&controls=1&rel=0&modestbranding=1&mute=0';
+            isVideoPlaying = true;
+            showVoiceFeedback('▶️ Playing demo video');
+            speakText('Playing demo video now.');
+        }
+
+        function stopDemoVideo() {
+            document.getElementById('demoVideoFrame').src = '';
+            isVideoPlaying = false;
+            showVoiceFeedback('⏸️ Video stopped');
+            speakText('Video stopped.');
+        }
+
+        function showArchitectureModal() {
+            document.getElementById('architectureModal').classList.add('show');
+            // Speak and auto-close
+            setTimeout(() => {
+                speakText('System architecture diagram. This shows how VisionSpeak works.');
+                setTimeout(() => {
+                    closeModals();
+                }, 8000); // Close after 8 seconds
+            }, 500);
+        }
+
+        function closeModals() {
+            document.getElementById('demoModal').classList.remove('show');
+            document.getElementById('architectureModal').classList.remove('show');
+            document.getElementById('cartModal').classList.remove('show');
+            document.getElementById('paymentModal')?.classList.remove('show');
+        }
+
+        function showPaymentOptions() {
+            closeModals(); // Close cart modal first
+            document.getElementById('paymentModal').classList.add('show');
+            showVoiceFeedback('💳 Select your payment method');
+            // Speak payment options
+            setTimeout(() => {
+                const message = 'Please select your payment method. Options available: UPI Payment, Credit Card, Debit Card, Apple Pay, Net Banking, or Cash on Delivery.';
+                speakText(message);
+            }, 500);
+        }
+
+        function speakText(text) {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = getLanguageCode(currentLanguage);
+            utterance.rate = 0.9;
+            utterance.volume = currentVolume;
+            speechSynthesis.speak(utterance);
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Update page content based on selected language
+        function updatePageContent(language) {
+            const content = translations[language];
+            if (!content) return;
+
+            // Apply font family based on language (all Asian languages)
+            const langFontMap = {
+                'hi': 'font-devanagari',  // Hindi
+                'te': 'font-telugu',      // Telugu
+                'ta': 'font-tamil',       // Tamil
+                'ur': 'font-arabic',      // Urdu
+                'kn': 'font-kannada',     // Kannada
+                'ml': 'font-malayalam',   // Malayalam
+                'ko': 'font-korean',      // Korean
+                'ja': 'font-japanese',    // Japanese
+                'zh': 'font-chinese'      // Chinese
+            };
+
+            // Remove ALL possible font classes first
+            const allFontClasses = ['font-devanagari', 'font-telugu', 'font-tamil', 'font-arabic', 'font-kannada', 'font-malayalam', 'font-korean', 'font-japanese', 'font-chinese'];
+            allFontClasses.forEach(fontClass => {
+                document.body.classList.remove(fontClass);
+            });
+
+            // Force add appropriate font class for the selected language
+            if (langFontMap[language]) {
+                document.body.classList.add(langFontMap[language]);
+                // Also add to HTML element for better coverage
+                document.documentElement.classList.remove(...allFontClasses);
+                document.documentElement.classList.add(langFontMap[language]);
+                console.log(`✅ Applied font: ${langFontMap[language]} for language: ${language}`);
+            } else {
+                // Remove fonts from HTML element too for English/French
+                document.documentElement.classList.remove(...allFontClasses);
+            }
+
+            // Update all text content
+            document.querySelector('h1[data-speak="true"]').textContent = content.title;
+            document.querySelector('p[data-speak="true"]').textContent = content.tagline;
+            document.querySelectorAll('button[data-speak="true"]')[0].textContent = content.watchDemo;
+            document.querySelectorAll('button[data-speak="true"]')[1].textContent = content.viewArchitecture;
+            document.querySelectorAll('button[data-speak="true"]')[2].textContent = content.shopNow;
+
+            // Update section headings and content
+            const headings = document.querySelectorAll('h2[data-speak="true"]');
+            headings[0].textContent = content.ourProducts;
+            headings[1].textContent = content.coreFeatures;
+            headings[2].textContent = content.systemArchitecture;
+
+            // Update paragraphs
+            const paragraphs = document.querySelectorAll('p[data-speak="true"]');
+            paragraphs[1].textContent = content.problemSolution;
+            paragraphs[2].textContent = content.smartSpectacles;
+
+            // Update feature cards
+            const featureHeadings = document.querySelectorAll('h3[data-speak="true"]');
+            featureHeadings[0].textContent = content.globalVoice;
+            featureHeadings[1].textContent = content.handsFree;
+            featureHeadings[2].textContent = content.hapticAlerts;
+            featureHeadings[3].textContent = content.howItWorks;
+            featureHeadings[4].textContent = content.databaseLogging;
+            featureHeadings[5].textContent = content.technologyStack;
+
+            // Update feature descriptions
+            const featureDescs = document.querySelectorAll('.feature-card p[data-speak="true"]');
+            featureDescs[0].textContent = content.globalVoiceDesc;
+            featureDescs[1].textContent = content.handsFreeDesc;
+            featureDescs[2].textContent = content.hapticAlertsDesc;
+
+            // Update architecture section
+            const archSteps = document.querySelectorAll('.flex.items-center p[data-speak="true"]');
+            archSteps[0].textContent = content.step1;
+            archSteps[1].textContent = content.step2;
+            archSteps[2].textContent = content.step3;
+            archSteps[3].textContent = content.step4;
+            archSteps[4].textContent = content.step5;
+
+            // Update other sections
+            const otherParagraphs = document.querySelectorAll('.dark-card p[data-speak="true"]');
+            otherParagraphs[otherParagraphs.length - 2].textContent = content.databaseDesc;
+
+            // Update tech list
+            const techList = document.querySelector('ul[data-speak="true"]');
+            if (techList) {
+                techList.innerHTML = content.techList.split('\n').map(item => `<li>${item}</li>`).join('');
+            }
+
+            // Update footer
+            const footerParagraphs = document.querySelectorAll('footer p[data-speak="true"]');
+            footerParagraphs[0].textContent = content.projectBy;
+            footerParagraphs[1].textContent = content.empowering;
+        }
+
+        // Initialize voice narration
+        function initVoiceNarration() {
+            elementsToRead = Array.from(document.querySelectorAll('[data-speak="true"]'));
+            setTimeout(() => {
+                startReading();
+            }, 1000);
+        }
+
+        function startReading() {
+            if (elementsToRead.length === 0 || isPaused) return;
+            isReading = true;
+            readNextElement();
+        }
+
+        function readNextElement() {
+            if (currentIndex >= elementsToRead.length || isPaused) {
+                isReading = false;
+                return;
+            }
+
+            const element = elementsToRead[currentIndex];
+            const text = element.textContent || element.innerText;
+
+            if (text.trim()) {
+                // Highlight current element
+                element.style.outline = '3px solid #8b5cf6';
+                element.style.outlineOffset = '2px';
+
+                // Auto-scroll to element
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                currentUtterance = new SpeechSynthesisUtterance(text);
+                currentUtterance.lang = getLanguageCode(currentLanguage);
+                currentUtterance.rate = 0.9;
+                currentUtterance.pitch = 1;
+                currentUtterance.volume = currentVolume;
+
+                currentUtterance.onend = () => {
+                    // Remove highlight
+                    element.style.outline = '';
+                    element.style.outlineOffset = '';
+
+                    currentIndex++;
+                    setTimeout(() => readNextElement(), 500);
+                };
+
+                currentUtterance.onerror = () => {
+                    element.style.outline = '';
+                    element.style.outlineOffset = '';
+                    currentIndex++;
+                    readNextElement();
+                };
+
+                speechSynthesis.speak(currentUtterance);
+            } else {
+                currentIndex++;
+                readNextElement();
+            }
+        }
+
+        function pauseReading() {
+            isPaused = true;
+            speechSynthesis.cancel();
+            document.getElementById('pauseBtn').style.display = 'none';
+            document.getElementById('resumeBtn').style.display = 'block';
+
+            // Remove any highlights
+            elementsToRead.forEach(el => {
+                el.style.outline = '';
+                el.style.outlineOffset = '';
+            });
+        }
+
+        function resumeReading() {
+            isPaused = false;
+            document.getElementById('pauseBtn').style.display = 'block';
+            document.getElementById('resumeBtn').style.display = 'none';
+            readNextElement();
+        }
+
+        function changeLanguage(langCode) {
+            currentLanguage = langCode;
+            document.getElementById('languageSelect').value = langCode;
+
+            // Stop current reading
+            speechSynthesis.cancel();
+            isPaused = false;
+            currentIndex = 0;
+
+            // Auto-change currency based on language
+            const langToCurrency = {
+                'en': 'USD',
+                'hi': 'INR',
+                'te': 'INR',
+                'ta': 'INR',
+                'kn': 'INR',
+                'ml': 'INR',
+                'ur': 'INR',
+                'zh': 'CNY',
+                'ja': 'JPY',
+                'ko': 'KRW',
+                'fr': 'EUR'
+            };
+
+            const newCurrency = langToCurrency[langCode] || 'USD';
+            currentCurrency = newCurrency;
+
+            // Update currency dropdown
+            const currencyMap = {
+                'CNY': 'INR', 'KRW': 'JPY'  // Fallback mapping
+            };
+            document.getElementById('currencySelect').value = currencyMap[newCurrency] || newCurrency;
+            updateProductPrices();
+
+            // Update page content
+            updatePageContent(langCode);
+
+            // Update speech recognition language
+            if (recognition) {
+                recognition.lang = getLanguageCode(langCode);
+            }
+
+            // Restart reading in new language
+            setTimeout(() => {
+                elementsToRead = Array.from(document.querySelectorAll('[data-speak="true"]'));
+                startReading();
+            }, 1000);
+        }
+
+        function getLanguageCode(lang) {
+            const langMap = {
+                'en': 'en-US',
+                'fr': 'fr-FR',
+                'hi': 'hi-IN',
+                'te': 'te-IN',
+                'ta': 'ta-IN',
+                'ur': 'ur-PK',
+                'kn': 'kn-IN',
+                'ml': 'ml-IN',
+                'ko': 'ko-KR',
+                'ja': 'ja-JP',
+                'zh': 'zh-CN'
+            };
+            return langMap[lang] || 'en-US';
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize speech recognition and start continuous listening
+            initSpeechRecognition();
+            setTimeout(() => {
+                startContinuousListening();
+            }, 2000);
+
+            // Theme toggle
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+            // Language selector
+            document.getElementById('languageSelect').addEventListener('change', function (e) {
+                changeLanguage(e.target.value);
+            });
+
+            // Currency selector
+            document.getElementById('currencySelect').addEventListener('change', function (e) {
+                currentCurrency = e.target.value;
+                updateProductPrices();
+            });
+
+            // Pause/Resume buttons
+            document.getElementById('pauseBtn').addEventListener('click', pauseReading);
+            document.getElementById('resumeBtn').addEventListener('click', resumeReading);
+
+            // Demo button
+            document.getElementById('watchDemoBtn').addEventListener('click', showDemoModal);
+
+            // Architecture button
+            document.getElementById('viewArchitectureBtn').addEventListener('click', showArchitectureModal);
+
+            // Shop now button
+            document.getElementById('shopNowBtn').addEventListener('click', () => scrollToSection('products'));
+
+            // Cart button
+            document.getElementById('cartBtn').addEventListener('click', showCartModal);
+
+            // Close modal buttons
+            document.getElementById('closeDemoModal').addEventListener('click', closeModals);
+            document.getElementById('closeArchitectureModal').addEventListener('click', closeModals);
+            document.getElementById('closeCartModal').addEventListener('click', closeModals);
+            document.getElementById('closePaymentModal')?.addEventListener('click', closeModals);
+
+            // Close modals when clicking outside
+            document.getElementById('demoModal').addEventListener('click', function (e) {
+                if (e.target === this) closeModals();
+            });
+
+            document.getElementById('architectureModal').addEventListener('click', function (e) {
+                if (e.target === this) closeModals();
+            });
+
+            document.getElementById('cartModal').addEventListener('click', function (e) {
+                if (e.target === this) closeModals();
+            });
+
+            document.getElementById('paymentModal')?.addEventListener('click', function (e) {
+                if (e.target === this) closeModals();
+            });
+
+            // Navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    scrollToSection(targetId);
+                });
+            });
+
+            // Start voice narration
+            initVoiceNarration();
+
+            // Show initial feedback
+            setTimeout(() => {
+                showVoiceFeedback('🎤 Voice commands ready! Say "demo", "shop", "cart", or any language name.');
+            }, 3000);
+        });
+
+        // Update product prices based on currency
+        function updateProductPrices() {
+            document.querySelectorAll('[data-price]').forEach(element => {
+                const productId = element.closest('.product-card').querySelector('.wishlist-heart').dataset.product;
+                const product = products[productId];
+                if (product) {
+                    const price = Math.round(product.price * currencyRates[currentCurrency]);
+                    const currencySymbol = getCurrencySymbol(currentCurrency);
+                    element.textContent = `${currencySymbol}${price}`;
+                }
+            });
+        }
+
+        // API Integration - Log user interactions to backend
+        const API_BASE_URL = 'http://localhost:5000';
+
+        async function logToBackend(objectDetected, languageUsed) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/log_detection`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        object: objectDetected,
+                        lang: languageUsed
+                    })
+                });
+
+                if (response.ok) {
+                    console.log('✅ Logged to backend:', objectDetected, languageUsed);
+                } else {
+                    console.warn('⚠️ Backend logging failed');
+                }
+            } catch (error) {
+                console.error('❌ Backend connection error:', error);
+            }
+        }
+
+        // Log language changes
+        const originalChangeLanguage = changeLanguage;
+        changeLanguage = function (lang) {
+            originalChangeLanguage(lang);
+            logToBackend('language_change', lang);
+        };
+
+        // Log product views
+        function logProductView(productName) {
+            logToBackend(`viewed_${productName}`, currentLang);
+        }
+
+        // Log cart additions
+        const originalAddToCart = addToCart;
+        addToCart = function (productId) {
+            originalAddToCart(productId);
+            const product = products[productId];
+            if (product) {
+                logToBackend(`added_to_cart_${product.name}`, currentLang);
+            }
+        };
+    </script>
+</body>
+
+</html>
